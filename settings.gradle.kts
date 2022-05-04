@@ -13,4 +13,5 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "PointsCounterTartot"
-include ':app'
+
+include(":app")
