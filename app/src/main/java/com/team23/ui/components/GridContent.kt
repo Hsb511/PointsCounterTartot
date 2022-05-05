@@ -27,7 +27,7 @@ fun GridContent(scores: List<Int>) {
             ) {
                 Text(
                     text = it.toString(),
-                    style = MaterialTheme.typography.subtitle1
+                    style = MaterialTheme.typography.h6
                 )
             }
         }
