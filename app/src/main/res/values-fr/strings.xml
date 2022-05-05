@@ -9,7 +9,12 @@
     <string name="tarot_guard_without">garde sans</string>
     <string name="tarot_guard_against">garde contre</string>
     <string name="tarot_oudlers">bouts</string>
+    <string name="tarot_petit">petit</string>
+    <string name="tarot_monde">21</string>
+    <string name="tarot_fool">excuse</string>
     <string name="tarot_scores">points</string>
     <string name="tarot_takers_partner">joueur appelé</string>
     <string name="tarot_bonuses">annonces</string>
+    <string name="tarot_handful">poignée</string>
+    <string name="tarot_slam">chelem</string>
 </resources>

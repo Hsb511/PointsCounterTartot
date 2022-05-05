@@ -9,7 +9,12 @@
     <string name="tarot_guard_without">guard without</string>
     <string name="tarot_guard_against">guard against</string>
     <string name="tarot_oudlers">oudlers</string>
+    <string name="tarot_petit">1</string>
+    <string name="tarot_monde">21</string>
+    <string name="tarot_fool">fool</string>
     <string name="tarot_scores">scores</string>
     <string name="tarot_takers_partner">takers partner</string>
     <string name="tarot_bonuses">bonuses</string>
+    <string name="tarot_handful">handful</string>
+    <string name="tarot_slam">slam</string>
 </resources>
