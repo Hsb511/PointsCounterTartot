@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">PointsCounterTartot</string>
+
+    <!-- French tarot -->
+    <string name="tarot_taker">preneur</string>
+    <string name="tarot_bid">contrat</string>
+    <string name="tarot_small">petite</string>
+    <string name="tarot_guard">garde</string>
+    <string name="tarot_guard_without">garde sans</string>
+    <string name="tarot_guard_against">garde contre</string>
+    <string name="tarot_oudlers">bouts</string>
+    <string name="tarot_scores">points</string>
+    <string name="tarot_takers_partner">joueur appelé</string>
+    <string name="tarot_bonuses">annonces</string>
+</resources>
