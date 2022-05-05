@@ -14,7 +14,7 @@ class TarotViewModel @Inject constructor() : ViewModel() {
 
     init {
         playersName.value = listOf("Laure", "Romane", "Guilla", "Justin", "Hugo")
-        totalScores.value = listOf(1000, 1000, 1000, 1000, 1000)
-        scores.value = listOf(listOf(-23, -23, -23, 23, 23), listOf(23, 23, 23, -23, -23))
+        totalScores.value = listOf(0, 0, -46, 0, 46)
+        scores.value = listOf(listOf(-23, -23, -23, 23, 23), listOf(23, 23, -23, -23, 23))
     }
 }
