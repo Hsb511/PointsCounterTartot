@@ -1,7 +1,15 @@
 package com.team23.ui
 
+import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import com.team23.ui.layouts.MainLayout
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity: ComponentActivity()
+class MainActivity: ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent { MainLayout() }
+    }
+}
