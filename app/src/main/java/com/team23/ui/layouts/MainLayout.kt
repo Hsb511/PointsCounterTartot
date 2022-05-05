@@ -8,7 +8,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.team23.ui.viewmodels.TarotViewModel
 
 @Composable
 fun MainLayout() {
@@ -16,7 +15,8 @@ fun MainLayout() {
 
     Box(modifier = Modifier.fillMaxSize()) {
         NavHost(navController, startDestination = "tarot") {
-            composable(route = "tarot") { TarotScreen(hiltViewModel()) }
+            composable(route = "tarot") { TarotScreen(hiltViewModel(), navController) }
+            composable(route = "tarotForm") { TarotForm(hiltViewModel(), navController) }
         }
     }
 }
