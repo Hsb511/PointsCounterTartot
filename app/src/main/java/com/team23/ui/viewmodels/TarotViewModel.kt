@@ -17,4 +17,10 @@ class TarotViewModel @Inject constructor() : ViewModel() {
         totalScores.value = listOf(0, 0, -46, 0, 46)
         scores.value = listOf(listOf(-23, -23, -23, 23, 23), listOf(23, 23, -23, -23, 23))
     }
+
+    fun onSaveNewGame() {
+        val newScores: MutableList<List<Int>> = scores.value.toMutableList()
+        newScores.add(listOf(0, 0, 0, 0, 0))
+        scores.value = newScores
+    }
 }
