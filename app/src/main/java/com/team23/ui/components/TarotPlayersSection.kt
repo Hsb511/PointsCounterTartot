@@ -5,7 +5,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -18,6 +20,9 @@ fun TarotPlayersSection(
     players: List<Player>,
     isTakerSection: Boolean
 ) {
+    val playersStates =
+        players.map { it.id }.associateWith { remember { mutableStateOf(false)  } }
+
     Text(text = title)
 
     LazyRow(
@@ -25,21 +30,21 @@ fun TarotPlayersSection(
         modifier = Modifier.fillMaxWidth()
     ) {
         items(players) {
-            var isSelected by remember {
-                mutableStateOf(if (isTakerSection) it.isTaker else it.isPartner)
-            }
             Chip(
                 onClick = {
-                    isSelected = !isSelected
                     if (isTakerSection) {
-                        it.isTaker = isSelected
+                        players.forEach { player -> player.isTaker = false }
+                        it.isTaker = true
                     } else {
-                        it.isPartner = isSelected
+                        players.forEach { player -> player.isPartner = false }
+                        it.isPartner = true
                     }
+                    playersStates.values.forEach { state -> state.value = false }
+                    playersStates[it.id]!!.value = true
                 },
                 colors = ChipDefaults.chipColors(
                     backgroundColor = when {
-                        isSelected -> MaterialTheme.colors.primary
+                        playersStates[it.id]!!.value -> MaterialTheme.colors.primary
                         else -> MaterialTheme.colors.primarySurface
                     }
                 )

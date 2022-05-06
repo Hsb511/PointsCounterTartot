@@ -28,10 +28,15 @@ class TarotViewModel @Inject constructor() : ViewModel() {
         newScores.add(listOf(0, 0, 0, 0, 0))
         scores.value = newScores
 
-        // Resetting the players for next game
+        resetDataForNextGame()
+
+    }
+
+    private fun resetDataForNextGame() {
         players.forEach {
             it.isTaker = false
             it.isPartner = false
         }
+        selectedBid.value = null
     }
 }
