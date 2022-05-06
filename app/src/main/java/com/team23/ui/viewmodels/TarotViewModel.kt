@@ -17,7 +17,6 @@ class TarotViewModel @Inject constructor() : ViewModel() {
     init {
         players.addAll(listOf("Laure", "Romane", "Guilla", "Justin", "Hugo")
             .mapIndexed { index, value -> Player(index, value) })
-        players[0].isTaker = true
         totalScores.value = listOf(0, 0, -46, 0, 46)
         scores.value = listOf(listOf(-23, -23, -23, 23, 23), listOf(23, 23, -23, -23, 23))
     }
@@ -26,5 +25,11 @@ class TarotViewModel @Inject constructor() : ViewModel() {
         val newScores: MutableList<List<Int>> = scores.value.toMutableList()
         newScores.add(listOf(0, 0, 0, 0, 0))
         scores.value = newScores
+
+        // Resetting the players for next game
+        players.forEach {
+            it.isTaker = false
+            it.isPartner = false
+        }
     }
 }
