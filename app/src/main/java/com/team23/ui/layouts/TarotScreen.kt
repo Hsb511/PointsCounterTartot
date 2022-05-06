@@ -16,6 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import com.team23.domain.models.Player
 import com.team23.ui.components.GridContent
 import com.team23.ui.components.GridHeader
 import com.team23.ui.viewmodels.TarotViewModel
@@ -23,8 +24,7 @@ import com.team23.ui.viewmodels.TarotViewModel
 @Composable
 fun TarotScreen(tarotViewModel: TarotViewModel = viewModel(), navController: NavHostController) {
     TarotScreen(
-        playersName = tarotViewModel.players.map { it.name },
-        totalScores = tarotViewModel.totalScores.value,
+        players = tarotViewModel.players,
         scores = tarotViewModel.scores,
         onAddGame = { navController.navigate("tarotForm") }
     )
@@ -32,8 +32,7 @@ fun TarotScreen(tarotViewModel: TarotViewModel = viewModel(), navController: Nav
 
 @Composable
 fun TarotScreen(
-    playersName: List<String>,
-    totalScores: List<Int>,
+    players: List<Player>,
     scores: List<List<Int>>,
     onAddGame: () -> Unit
 ) {
@@ -62,7 +61,7 @@ fun TarotScreen(
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     item {
-                        GridHeader(playersName = playersName, totalScores = totalScores)
+                        GridHeader(players = players)
                     }
                     items(scores) {
                         GridContent(scores = it)
@@ -79,8 +78,8 @@ fun TarotScreen(
 @Composable
 fun TarotScreenPreview() {
     TarotScreen(
-        playersName = listOf("Laure", "Romane", "Guilla", "Justin", "Hugo"),
-        totalScores = listOf(0, 0, -46, 0, 46),
+        players = listOf("Laure", "Romane", "Guilla", "Justin", "Hugo")
+            .mapIndexed { id, name -> Player(id, name) },
         scores = listOf(listOf(-23, -23, -23, 23, 23), listOf(23, 23, -23, -23, 23)),
         onAddGame = {}
     )

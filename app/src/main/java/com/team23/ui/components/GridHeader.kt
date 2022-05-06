@@ -15,26 +15,27 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.team23.domain.models.Player
 
 @Composable
-fun GridHeader(playersName: List<String>, totalScores: List<Int>) {
+fun GridHeader(players: List<Player>) {
     LazyRow(modifier = Modifier.fillMaxWidth()) {
-        items(playersName) {
+        items(players) {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
-                    .fillParentMaxWidth(1f / playersName.size)
+                    .fillParentMaxWidth(1f / players.size)
                     .background(color = MaterialTheme.colors.primary)
                     .border(BorderStroke(1.dp, MaterialTheme.colors.primaryVariant))
             ) {
                 Text(
-                    text = it,
+                    text = it.name,
                     color = MaterialTheme.colors.onPrimary,
                     style = MaterialTheme.typography.subtitle1,
                     modifier = Modifier.padding(0.dp, 4.dp, 0.dp, 0.dp)
                 )
                 Text(
-                    text = totalScores[playersName.indexOf(it)].toString(),
+                    text = it.score.toString(),
                     color = MaterialTheme.colors.onPrimary,
                     style = MaterialTheme.typography.h6,
                     modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 8.dp)
@@ -48,7 +49,7 @@ fun GridHeader(playersName: List<String>, totalScores: List<Int>) {
 @Composable
 fun GridHeaderPreview() {
     GridHeader(
-        playersName = listOf("Laure", "Romane", "Guilla", "Justin", "Hugo"),
-        totalScores = listOf(1000, 1000, 1000, 1000, 1000)
+        players = listOf("Laure", "Romane", "Guilla", "Justin", "Hugo")
+            .mapIndexed { id, name -> Player(id, name) }
     )
 }

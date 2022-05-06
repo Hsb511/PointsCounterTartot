@@ -7,11 +7,6 @@ import org.junit.Test
 
 import org.junit.Assert.*
 
-/**
- * Example local unit test, which will execute on the development machine (host).
- *
- * See [testing documentation](http://d.android.com/tools/testing).
- */
 class ComputeGameScoresUseCaseTest {
     private val computeGameScoresUseCase = ComputeGameScoresUseCase()
     private val firstPlayer = Player(id = 0, name = "first", isTaker = true, isPartner = false)

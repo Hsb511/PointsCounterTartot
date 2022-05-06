@@ -18,18 +18,23 @@ class TarotViewModel @Inject constructor(
     private val filterDefensePointsUseCase: FilterDefensePointsUseCase,
     private val computeGameScoresUseCase: ComputeGameScoresUseCase
 ) : ViewModel() {
+    private val defaultBid: BidEnum? = null
+    private val defaultOudlersAmount = 0
+    private val defaultAttackPoints = ""
+    private val defaultDefensePoints = ""
+
     val players = mutableStateListOf<Player>()
-    val bid: MutableState<BidEnum?> = mutableStateOf(null)
-    val oudlersAmount = mutableStateOf(0)
-    val attackPoints = mutableStateOf("0")
-    val defensePoints = mutableStateOf("0")
-    val totalScores: MutableState<List<Int>> = mutableStateOf(emptyList())
+    val bid: MutableState<BidEnum?> = mutableStateOf(defaultBid)
+    val oudlersAmount = mutableStateOf(defaultOudlersAmount)
+    val attackPoints = mutableStateOf(defaultAttackPoints)
+    val defensePoints = mutableStateOf(defaultDefensePoints)
     val scores = mutableStateListOf<List<Int>>(emptyList())
 
     init {
         players.addAll(listOf("Laure", "Romane", "Guilla", "Justin", "Hugo")
             .mapIndexed { index, value -> Player(index, value) })
-        totalScores.value = listOf(0, 0, -46, 0, 46)
+        players[2].score = -46
+        players[4].score = 46
         scores.add(listOf(-23, -23, -23, 23, 23))
         scores.add(listOf(23, 23, -23, -23, 23))
     }
@@ -52,8 +57,10 @@ class TarotViewModel @Inject constructor(
             it.isTaker = false
             it.isPartner = false
         }
-        bid.value = null
-        oudlersAmount.value = 0
+        bid.value = defaultBid
+        oudlersAmount.value = defaultOudlersAmount
+        attackPoints.value = defaultAttackPoints
+        defensePoints.value = defaultDefensePoints
     }
 
     fun onFilterAttackPoints(attackPoints: String, defensePoints: String): String {
