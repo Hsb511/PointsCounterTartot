@@ -2,20 +2,19 @@ package com.team23.ui.layouts
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.team23.R
-import com.team23.ui.components.TarotChipsSection
+import com.team23.domain.models.Player
+import com.team23.ui.components.TarotPlayersSection
 import com.team23.ui.components.TarotScoresSection
 import com.team23.ui.viewmodels.TarotViewModel
 
@@ -23,7 +22,7 @@ import com.team23.ui.viewmodels.TarotViewModel
 @Composable
 fun TarotForm(tarotViewModel: TarotViewModel = viewModel(), navController: NavHostController) {
     TarotForm(
-        playersName = tarotViewModel.playersName.value,
+        playersName = tarotViewModel.players,
         onSaveNewGame = {
             tarotViewModel.onSaveNewGame()
             navController.navigate("tarot")
@@ -34,7 +33,7 @@ fun TarotForm(tarotViewModel: TarotViewModel = viewModel(), navController: NavHo
 @ExperimentalMaterialApi
 @Composable
 fun TarotForm(
-    playersName: List<String>,
+    playersName: List<Player>,
     onSaveNewGame: () -> Unit
 ) {
     Scaffold(
@@ -48,11 +47,13 @@ fun TarotForm(
             }
         }) { padding ->
         Column(modifier = Modifier.padding(padding)) {
-            TarotChipsSection(
+            TarotPlayersSection(
                 title = "${stringResource(id = R.string.tarot_taker)}:",
-                chipsNameList = playersName
+                players = playersName,
+                isTakerSection = true
             )
 
+            /*
             TarotChipsSection(
                 title = "${stringResource(id = R.string.tarot_bid)}:",
                 chipsNameList = listOf(
@@ -60,7 +61,7 @@ fun TarotForm(
                     stringResource(id = R.string.tarot_guard),
                     stringResource(id = R.string.tarot_guard_without),
                     stringResource(id = R.string.tarot_guard_against)
-                )
+                ).associateWith { false }.toMutableMap()
             )
 
             TarotChipsSection(
@@ -69,26 +70,28 @@ fun TarotForm(
                     stringResource(id = R.string.tarot_petit),
                     stringResource(id = R.string.tarot_monde),
                     stringResource(id = R.string.tarot_fool)
-                )
-            )
+                ).associateWith { false }.toMutableMap()
+            )*/
 
             TarotScoresSection()
 
             if (playersName.size == 5) {
-                TarotChipsSection(
+                TarotPlayersSection(
                     title = "${stringResource(id = R.string.tarot_takers_partner)}:",
-                    chipsNameList = playersName
+                    players = playersName,
+                    isTakerSection = false
                 )
             }
 
+            /*
             TarotChipsSection(
                 title = "${stringResource(id = R.string.tarot_bonuses)}:",
                 chipsNameList = listOf(
                     stringResource(id = R.string.tarot_handful),
                     stringResource(id = R.string.tarot_misery),
                     stringResource(id = R.string.tarot_slam)
-                )
-            )
+                ).associateWith { false }.toMutableMap()
+            )*/
         }
     }
 }
@@ -98,7 +101,8 @@ fun TarotForm(
 @Composable
 fun TarotFormPreview() {
     TarotForm(
-        listOf("Laure", "Romane", "Guilla", "Justin", "Hugo"),
+        listOf("Laure", "Romane", "Guilla", "Justin", "Hugo")
+            .mapIndexed { index, value -> Player(index, value) },
         onSaveNewGame = {}
     )
 }

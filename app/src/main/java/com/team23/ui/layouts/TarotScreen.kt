@@ -23,7 +23,7 @@ import com.team23.ui.viewmodels.TarotViewModel
 @Composable
 fun TarotScreen(tarotViewModel: TarotViewModel = viewModel(), navController: NavHostController) {
     TarotScreen(
-        playersName = tarotViewModel.playersName.value,
+        playersName = tarotViewModel.players.map { it.name },
         totalScores = tarotViewModel.totalScores.value,
         scores = tarotViewModel.scores.value,
         onAddGame = { navController.navigate("tarotForm") }
