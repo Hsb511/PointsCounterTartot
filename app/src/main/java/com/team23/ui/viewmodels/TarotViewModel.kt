@@ -35,7 +35,14 @@ class TarotViewModel @Inject constructor(
     }
 
     fun onSaveNewGame() {
-        scores.add(computeGameScoresUseCase())
+        scores.add(
+            computeGameScoresUseCase(
+                players,
+                bid.value!!,
+                oudlersAmount.value,
+                attackPoints.value.toInt()
+            )
+        )
 
         resetDataForNextGame()
     }

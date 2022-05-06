@@ -6,3 +6,5 @@ data class Player(
     var isTaker: Boolean = false,
     var isPartner: Boolean = false
 )
+
+fun List<Player>.isNotSelfCalled() = this.none { it.isTaker && it.isPartner }
