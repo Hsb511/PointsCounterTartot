@@ -38,7 +38,7 @@ class ComputeGameScoresUseCase @Inject constructor() {
         } else {
             players.map {
                 if (it.isTaker) {
-                    baseScore * (players.size - 2)
+                    baseScore * (players.size - 1)
                 } else {
                     -baseScore
                 }
