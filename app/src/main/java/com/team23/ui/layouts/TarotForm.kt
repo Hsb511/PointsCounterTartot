@@ -31,9 +31,14 @@ fun TarotForm(tarotViewModel: TarotViewModel = viewModel(), navController: NavHo
         players = tarotViewModel.players,
         selectedBid = tarotViewModel.bid,
         oudlersAmount = tarotViewModel.oudlersAmount,
+        attackPoints = tarotViewModel.attackPoints,
+        defensePoints = tarotViewModel.defensePoints,
         onSaveNewGame = {
             tarotViewModel.onSaveNewGame()
             navController.navigate("tarot")
+        },
+        onAttackPointsChanged = { attackPoints, defensePoints ->
+            tarotViewModel.onFilterAttackPoints(attackPoints, defensePoints)
         }
     )
 }
@@ -44,7 +49,10 @@ fun TarotForm(
     players: List<Player>,
     selectedBid: MutableState<BidEnum?>,
     oudlersAmount: MutableState<Int>,
-    onSaveNewGame: () -> Unit
+    attackPoints: MutableState<String>,
+    defensePoints: MutableState<String>,
+    onSaveNewGame: () -> Unit,
+    onAttackPointsChanged: (String, String) -> String
 ) {
     Scaffold(
         modifier = Modifier.padding(8.dp),
@@ -67,7 +75,11 @@ fun TarotForm(
 
             TarotOudlersSection(oudlersAmount)
 
-            TarotScoresSection()
+            TarotScoresSection(
+                attackPoints,
+                defensePoints,
+                onAttackPointsChanged
+            )
 
             if (players.size == 5) {
                 TarotPlayersSection(
@@ -97,8 +109,11 @@ fun TarotFormPreview() {
     TarotForm(
         players = listOf("Laure", "Romane", "Guilla", "Justin", "Hugo")
             .mapIndexed { index, value -> Player(index, value) },
-        selectedBid = remember { mutableStateOf(BidEnum.GUARD)},
+        selectedBid = remember { mutableStateOf(BidEnum.GUARD) },
+        attackPoints = remember { mutableStateOf("68") },
+        defensePoints = remember { mutableStateOf("23") },
         oudlersAmount = remember { mutableStateOf(0) },
-        onSaveNewGame = {}
+        onSaveNewGame = {},
+        onAttackPointsChanged = String::plus
     )
 }

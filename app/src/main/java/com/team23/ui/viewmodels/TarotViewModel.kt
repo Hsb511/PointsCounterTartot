@@ -6,14 +6,21 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.team23.domain.enums.BidEnum
 import com.team23.domain.models.Player
+import com.team23.domain.usecases.FilterAttackPointsUseCase
+import com.team23.domain.usecases.FilterDefensePointsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class TarotViewModel @Inject constructor() : ViewModel() {
+class TarotViewModel @Inject constructor(
+    private val filterAttackPointsUseCase: FilterAttackPointsUseCase,
+    private val filterDefensePointsUseCase: FilterDefensePointsUseCase
+) : ViewModel() {
     val players = mutableStateListOf<Player>()
     val bid: MutableState<BidEnum?> = mutableStateOf(null)
     val oudlersAmount = mutableStateOf(0)
+    val attackPoints = mutableStateOf("0")
+    val defensePoints = mutableStateOf("0")
     val totalScores: MutableState<List<Int>> = mutableStateOf(emptyList())
     val scores: MutableState<List<List<Int>>> = mutableStateOf(emptyList())
 
@@ -40,5 +47,10 @@ class TarotViewModel @Inject constructor() : ViewModel() {
         }
         bid.value = null
         oudlersAmount.value = 0
+    }
+
+    fun onFilterAttackPoints(attackPoints: String, defensePoints: String): String {
+        this.defensePoints.value = filterDefensePointsUseCase(attackPoints, defensePoints)
+        return filterAttackPointsUseCase(attackPoints, defensePoints)
     }
 }

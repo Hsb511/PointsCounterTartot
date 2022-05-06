@@ -8,6 +8,9 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -17,20 +20,28 @@ import androidx.compose.ui.unit.dp
 import com.team23.R
 
 @Composable
-fun TarotScoresSection() {
+fun TarotScoresSection(
+    attackPoints: MutableState<String>,
+    defensePoints: MutableState<String>,
+    onAttackPointsChanged: (String, String) -> String
+) {
     Text(text = "${stringResource(id = R.string.tarot_scores)}:")
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.fillMaxWidth().padding(8.dp, 8.dp, 0.dp, 8.dp)
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp, 8.dp, 0.dp, 8.dp)
     ) {
         Text(
             text = "${stringResource(id = R.string.tarot_attack)}:",
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(0.9f)
         )
         TextField(
-            value = "23",
-            onValueChange = {/* TODO */ },
+            value = attackPoints.value,
+            onValueChange = {
+                attackPoints.value = onAttackPointsChanged(it, defensePoints.value)
+            },
             shape = RoundedCornerShape(32.dp),
             colors = TextFieldDefaults.textFieldColors(
                 focusedIndicatorColor = Color.Transparent,
@@ -41,10 +52,12 @@ fun TarotScoresSection() {
         )
         Text(
             text = "${stringResource(id = R.string.tarot_defense)}:",
-            modifier = Modifier.weight(1f).padding(8.dp, 0.dp, 0.dp, 0.dp)
+            modifier = Modifier
+                .weight(1.1f)
+                .padding(8.dp, 0.dp, 0.dp, 0.dp)
         )
         TextField(
-            value = "23",
+            value = defensePoints.value,
             onValueChange = {/* TODO */ },
             shape = RoundedCornerShape(32.dp),
             colors = TextFieldDefaults.textFieldColors(
@@ -60,5 +73,9 @@ fun TarotScoresSection() {
 @Preview(showSystemUi = true)
 @Composable
 fun TarotScoresSectionPreview() {
-    TarotScoresSection()
+    TarotScoresSection(
+        attackPoints = remember { mutableStateOf("23")},
+        defensePoints  = remember { mutableStateOf("68")},
+        onAttackPointsChanged = String::plus
+    )
 }
