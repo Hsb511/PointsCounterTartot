@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.team23.domain.enums.BidEnum
 import com.team23.domain.models.Player
+import com.team23.domain.usecases.ComputeGameScoresUseCase
 import com.team23.domain.usecases.FilterAttackPointsUseCase
 import com.team23.domain.usecases.FilterDefensePointsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,7 +15,8 @@ import javax.inject.Inject
 @HiltViewModel
 class TarotViewModel @Inject constructor(
     private val filterAttackPointsUseCase: FilterAttackPointsUseCase,
-    private val filterDefensePointsUseCase: FilterDefensePointsUseCase
+    private val filterDefensePointsUseCase: FilterDefensePointsUseCase,
+    private val computeGameScoresUseCase: ComputeGameScoresUseCase
 ) : ViewModel() {
     val players = mutableStateListOf<Player>()
     val bid: MutableState<BidEnum?> = mutableStateOf(null)
@@ -22,22 +24,20 @@ class TarotViewModel @Inject constructor(
     val attackPoints = mutableStateOf("0")
     val defensePoints = mutableStateOf("0")
     val totalScores: MutableState<List<Int>> = mutableStateOf(emptyList())
-    val scores: MutableState<List<List<Int>>> = mutableStateOf(emptyList())
+    val scores = mutableStateListOf<List<Int>>(emptyList())
 
     init {
         players.addAll(listOf("Laure", "Romane", "Guilla", "Justin", "Hugo")
             .mapIndexed { index, value -> Player(index, value) })
         totalScores.value = listOf(0, 0, -46, 0, 46)
-        scores.value = listOf(listOf(-23, -23, -23, 23, 23), listOf(23, 23, -23, -23, 23))
+        scores.add(listOf(-23, -23, -23, 23, 23))
+        scores.add(listOf(23, 23, -23, -23, 23))
     }
 
     fun onSaveNewGame() {
-        val newScores: MutableList<List<Int>> = scores.value.toMutableList()
-        newScores.add(listOf(0, 0, 0, 0, 0))
-        scores.value = newScores
+        scores.add(computeGameScoresUseCase())
 
         resetDataForNextGame()
-
     }
 
     private fun resetDataForNextGame() {

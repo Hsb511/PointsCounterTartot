@@ -25,7 +25,7 @@ fun TarotScreen(tarotViewModel: TarotViewModel = viewModel(), navController: Nav
     TarotScreen(
         playersName = tarotViewModel.players.map { it.name },
         totalScores = tarotViewModel.totalScores.value,
-        scores = tarotViewModel.scores.value,
+        scores = tarotViewModel.scores,
         onAddGame = { navController.navigate("tarotForm") }
     )
 }
