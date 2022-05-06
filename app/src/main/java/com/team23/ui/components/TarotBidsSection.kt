@@ -30,21 +30,15 @@ fun TarotBidsSection(selectedBid: MutableState<BidEnum?>) {
     ) {
 
         items(BidEnum.values()) {
-            Chip(
+            FormChip(
+                text = stringResource(it.nameId).uppercase(),
+                colorState = bidsStates[it]!!,
                 onClick = {
                     bidsStates[selectedBid.value]?.value = false
                     selectedBid.value = it
                     bidsStates[selectedBid.value]?.value = true
-                },
-                colors = ChipDefaults.chipColors(
-                    backgroundColor = when {
-                        bidsStates[it]!!.value -> MaterialTheme.colors.primary
-                        else -> MaterialTheme.colors.primarySurface
-                    }
-                )
-            ) {
-                Text(text = stringResource(it.nameId).uppercase())
-            }
+                }
+            )
         }
     }
 }

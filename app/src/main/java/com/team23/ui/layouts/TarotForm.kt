@@ -63,15 +63,6 @@ fun TarotForm(
             TarotBidsSection(selectedBid)
 
             /*
-            TarotChipsSection(
-                title = "${stringResource(id = R.string.tarot_bid)}:",
-                chipsNameList = listOf(
-                    stringResource(id = R.string.tarot_small),
-                    stringResource(id = R.string.tarot_guard),
-                    stringResource(id = R.string.tarot_guard_without),
-                    stringResource(id = R.string.tarot_guard_against)
-                ).associateWith { false }.toMutableMap()
-            )
 
             TarotChipsSection(
                 title = "${stringResource(id = R.string.tarot_oudlers)}:",

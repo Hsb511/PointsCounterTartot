@@ -21,7 +21,7 @@ fun TarotPlayersSection(
     isTakerSection: Boolean
 ) {
     val playersStates =
-        players.map { it.id }.associateWith { remember { mutableStateOf(false)  } }
+        players.map { it.id }.associateWith { remember { mutableStateOf(false) } }
 
     Text(text = title)
 
@@ -30,7 +30,9 @@ fun TarotPlayersSection(
         modifier = Modifier.fillMaxWidth()
     ) {
         items(players) {
-            Chip(
+            FormChip(
+                text = it.name.uppercase(),
+                colorState = playersStates[it.id]!!,
                 onClick = {
                     if (isTakerSection) {
                         players.forEach { player -> player.isTaker = false }
@@ -41,16 +43,8 @@ fun TarotPlayersSection(
                     }
                     playersStates.values.forEach { state -> state.value = false }
                     playersStates[it.id]!!.value = true
-                },
-                colors = ChipDefaults.chipColors(
-                    backgroundColor = when {
-                        playersStates[it.id]!!.value -> MaterialTheme.colors.primary
-                        else -> MaterialTheme.colors.primarySurface
-                    }
-                )
-            ) {
-                Text(text = it.name.uppercase())
-            }
+                }
+            )
         }
     }
 }

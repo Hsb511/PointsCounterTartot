@@ -22,7 +22,7 @@ fun TarotScoresSection() {
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth().padding(8.dp, 8.dp, 0.dp, 8.dp)
     ) {
         Text(
             text = "${stringResource(id = R.string.tarot_attack)}:",
