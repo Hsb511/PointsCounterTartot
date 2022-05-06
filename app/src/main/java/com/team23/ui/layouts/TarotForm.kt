@@ -19,6 +19,7 @@ import com.team23.R
 import com.team23.domain.enums.BidEnum
 import com.team23.domain.models.Player
 import com.team23.ui.components.TarotBidsSection
+import com.team23.ui.components.TarotOudlersSection
 import com.team23.ui.components.TarotPlayersSection
 import com.team23.ui.components.TarotScoresSection
 import com.team23.ui.viewmodels.TarotViewModel
@@ -28,7 +29,8 @@ import com.team23.ui.viewmodels.TarotViewModel
 fun TarotForm(tarotViewModel: TarotViewModel = viewModel(), navController: NavHostController) {
     TarotForm(
         players = tarotViewModel.players,
-        selectedBid = tarotViewModel.selectedBid,
+        selectedBid = tarotViewModel.bid,
+        oudlersAmount = tarotViewModel.oudlersAmount,
         onSaveNewGame = {
             tarotViewModel.onSaveNewGame()
             navController.navigate("tarot")
@@ -41,6 +43,7 @@ fun TarotForm(tarotViewModel: TarotViewModel = viewModel(), navController: NavHo
 fun TarotForm(
     players: List<Player>,
     selectedBid: MutableState<BidEnum?>,
+    oudlersAmount: MutableState<Int>,
     onSaveNewGame: () -> Unit
 ) {
     Scaffold(
@@ -62,16 +65,7 @@ fun TarotForm(
 
             TarotBidsSection(selectedBid)
 
-            /*
-
-            TarotChipsSection(
-                title = "${stringResource(id = R.string.tarot_oudlers)}:",
-                chipsNameList = listOf(
-                    stringResource(id = R.string.tarot_petit),
-                    stringResource(id = R.string.tarot_monde),
-                    stringResource(id = R.string.tarot_fool)
-                ).associateWith { false }.toMutableMap()
-            )*/
+            TarotOudlersSection(oudlersAmount)
 
             TarotScoresSection()
 
@@ -104,6 +98,7 @@ fun TarotFormPreview() {
         players = listOf("Laure", "Romane", "Guilla", "Justin", "Hugo")
             .mapIndexed { index, value -> Player(index, value) },
         selectedBid = remember { mutableStateOf(BidEnum.GUARD)},
+        oudlersAmount = remember { mutableStateOf(0) },
         onSaveNewGame = {}
     )
 }

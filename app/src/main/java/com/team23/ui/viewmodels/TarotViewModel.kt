@@ -12,7 +12,8 @@ import javax.inject.Inject
 @HiltViewModel
 class TarotViewModel @Inject constructor() : ViewModel() {
     val players = mutableStateListOf<Player>()
-    val selectedBid: MutableState<BidEnum?> = mutableStateOf(null)
+    val bid: MutableState<BidEnum?> = mutableStateOf(null)
+    val oudlersAmount = mutableStateOf(0)
     val totalScores: MutableState<List<Int>> = mutableStateOf(emptyList())
     val scores: MutableState<List<List<Int>>> = mutableStateOf(emptyList())
 
@@ -37,6 +38,7 @@ class TarotViewModel @Inject constructor() : ViewModel() {
             it.isTaker = false
             it.isPartner = false
         }
-        selectedBid.value = null
+        bid.value = null
+        oudlersAmount.value = 0
     }
 }
