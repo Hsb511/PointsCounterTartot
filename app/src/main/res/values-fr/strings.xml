@@ -13,8 +13,11 @@
     <string name="tarot_monde">21</string>
     <string name="tarot_fool">excuse</string>
     <string name="tarot_scores">points</string>
+    <string name="tarot_attack">att</string>
+    <string name="tarot_defense">def</string>
     <string name="tarot_takers_partner">joueur appelé</string>
     <string name="tarot_bonuses">annonces</string>
     <string name="tarot_handful">poignée</string>
+    <string name="tarot_misery">misère</string>
     <string name="tarot_slam">chelem</string>
 </resources>

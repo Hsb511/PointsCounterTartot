@@ -15,7 +15,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.team23.R
-import com.team23.ui.components.TarotFormSection
+import com.team23.ui.components.TarotChipsSection
+import com.team23.ui.components.TarotScoresSection
 import com.team23.ui.viewmodels.TarotViewModel
 
 @ExperimentalMaterialApi
@@ -47,12 +48,12 @@ fun TarotForm(
             }
         }) { padding ->
         Column(modifier = Modifier.padding(padding)) {
-            TarotFormSection(
+            TarotChipsSection(
                 title = "${stringResource(id = R.string.tarot_taker)}:",
                 chipsNameList = playersName
             )
 
-            TarotFormSection(
+            TarotChipsSection(
                 title = "${stringResource(id = R.string.tarot_bid)}:",
                 chipsNameList = listOf(
                     stringResource(id = R.string.tarot_small),
@@ -62,7 +63,7 @@ fun TarotForm(
                 )
             )
 
-            TarotFormSection(
+            TarotChipsSection(
                 title = "${stringResource(id = R.string.tarot_oudlers)}:",
                 chipsNameList = listOf(
                     stringResource(id = R.string.tarot_petit),
@@ -71,30 +72,20 @@ fun TarotForm(
                 )
             )
 
-            Text(text = "${stringResource(id = R.string.tarot_scores)}:")
-            TextField(
-                value = "23",
-                onValueChange = {/* TODO */ },
-                shape = RoundedCornerShape(32.dp),
-                colors = TextFieldDefaults.textFieldColors(
-                    focusedIndicatorColor = Color.Transparent,
-                    unfocusedIndicatorColor = Color.Transparent,
-                    disabledIndicatorColor = Color.Transparent
-                ),
-                modifier = Modifier.padding(0.dp, 8.dp)
-            )
+            TarotScoresSection()
 
             if (playersName.size == 5) {
-                TarotFormSection(
+                TarotChipsSection(
                     title = "${stringResource(id = R.string.tarot_takers_partner)}:",
                     chipsNameList = playersName
                 )
             }
 
-            TarotFormSection(
+            TarotChipsSection(
                 title = "${stringResource(id = R.string.tarot_bonuses)}:",
                 chipsNameList = listOf(
                     stringResource(id = R.string.tarot_handful),
+                    stringResource(id = R.string.tarot_misery),
                     stringResource(id = R.string.tarot_slam)
                 )
             )

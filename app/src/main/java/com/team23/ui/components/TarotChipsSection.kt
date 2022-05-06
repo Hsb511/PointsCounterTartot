@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 
 @ExperimentalMaterialApi
 @Composable
-fun TarotFormSection(
+fun TarotChipsSection(
     title: String,
     chipsNameList: List<String>
 ) {
@@ -35,8 +35,8 @@ fun TarotFormSection(
 @ExperimentalMaterialApi
 @Preview(showSystemUi = true)
 @Composable
-fun TarotFormSectionPreview() {
-    TarotFormSection(
+fun TarotChipsSectionPreview() {
+    TarotChipsSection(
         title = "taker:",
         chipsNameList = listOf("Laure", "Romane", "Guilla", "Justin", "Hugo")
     )
