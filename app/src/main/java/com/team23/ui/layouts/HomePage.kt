@@ -23,13 +23,18 @@ import com.team23.ui.viewmodels.HomePageViewModel
 @Composable
 fun HomePage(homePageViewModel: HomePageViewModel = viewModel(), navController: NavHostController) {
     HomePage(
-        tarotGames = homePageViewModel.tarotGames
+        tarotGames = homePageViewModel.tarotGames,
+        onNewTarotGame = {
+            navController.navigate("tarot")
+            // TODO PERSIST THE NEW GAME THROUGH THE VM
+        }
     )
 }
 
 @Composable
 fun HomePage(
-    tarotGames: List<Game>
+    tarotGames: List<Game>,
+    onNewTarotGame: () -> Unit
 ) {
     val configuration = LocalConfiguration.current
 
@@ -42,26 +47,30 @@ fun HomePage(
         fun tarotHomeCard() = HomeCard(
             title = stringResource(id = R.string.home_tarot),
             modifier = Modifier.weight(1f),
-            games = tarotGames
-        ) { }
+            games = tarotGames,
+            onAddNewGame = { onNewTarotGame() }
+        )
         @Composable
         fun whistHomeCard() = HomeCard(
             title = stringResource(id = R.string.home_whist),
             modifier = Modifier.weight(1f),
-            games = emptyList()
-        ) { }
+            games = emptyList(),
+            onAddNewGame = { }
+        )
         @Composable
         fun coincheHomeCard() = HomeCard(
             title = stringResource(id = R.string.home_coinche),
             modifier = Modifier.weight(1f),
-            games = emptyList()
-        ) { }
+            games = emptyList(),
+            onAddNewGame = { }
+        )
         @Composable
         fun beloteHomeCard() = HomeCard(
             title = stringResource(id = R.string.home_belote),
             modifier = Modifier.weight(1f),
-            games = emptyList()
-        ) { }
+            games = emptyList(),
+            onAddNewGame = { }
+        )
 
         when (configuration.orientation) {
             Configuration.ORIENTATION_PORTRAIT -> {
@@ -96,6 +105,7 @@ fun HomePagePreview() {
                 players = listOf("Laure", "Romane", "Guilla", "Justin", "Hugo")
                     .mapIndexed { index, value -> Player(index, value) }
             )
-        )
+        ),
+        onNewTarotGame = { }
     )
 }

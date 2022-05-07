@@ -24,11 +24,11 @@ import com.team23.domain.models.Game
 import com.team23.domain.models.Player
 
 @Composable
-inline fun HomeCard(
+fun HomeCard(
     title: String,
     games: List<Game>,
-    modifier: Modifier = Modifier,
-    crossinline content: @Composable () -> Unit
+    onAddNewGame: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     Card(
         modifier = modifier
@@ -39,15 +39,17 @@ inline fun HomeCard(
             modifier = Modifier.padding(4.dp),
             floatingActionButton = {
                 FloatingActionButton(
-                    onClick = { /* TODO */ },
+                    onClick = { onAddNewGame() },
                     elevation = FloatingActionButtonDefaults.elevation(8.dp)
                 ) {
                     Icon(Icons.Filled.Add, "Add")
                 }
             }) { padding ->
-            Column(modifier = Modifier
-                .padding(padding)
-                .fillMaxWidth()) {
+            Column(
+                modifier = Modifier
+                    .padding(padding)
+                    .fillMaxWidth()
+            ) {
                 Text(
                     text = title,
                     style = MaterialTheme.typography.h6,
@@ -97,8 +99,6 @@ inline fun HomeCard(
                         }
                     }
                 }
-
-                content()
             }
         }
     }
@@ -114,6 +114,6 @@ fun HomeCardPreview() {
             players = listOf("Laure", "Romane", "Guilla", "Justin", "Hugo")
                 .mapIndexed { index, value -> Player(index, value) }
         )
-    ), //onAddNewGame = {}
-    ) { }
+    ), onAddNewGame = { }
+    )
 }
