@@ -6,10 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.team23.domain.enums.BidEnum
 import com.team23.domain.models.Player
-import com.team23.domain.usecases.ComputeGameScoresUseCase
-import com.team23.domain.usecases.FilterAttackPointsUseCase
-import com.team23.domain.usecases.FilterDefensePointsUseCase
-import com.team23.domain.usecases.UpdatePlayersScoreUseCase
+import com.team23.domain.usecases.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -18,7 +15,8 @@ class TarotViewModel @Inject constructor(
     private val filterAttackPointsUseCase: FilterAttackPointsUseCase,
     private val filterDefensePointsUseCase: FilterDefensePointsUseCase,
     private val computeGameScoresUseCase: ComputeGameScoresUseCase,
-    private val updatePlayersScoreUseCase: UpdatePlayersScoreUseCase
+    private val updatePlayersScoreUseCase: UpdatePlayersScoreUseCase,
+    private val checkFormValidityUseCase: CheckFormValidityUseCase,
 ) : ViewModel() {
     private val defaultBid: BidEnum? = null
     private val defaultOudlersAmount = 0
@@ -35,26 +33,26 @@ class TarotViewModel @Inject constructor(
     init {
         players.addAll(listOf("Laure", "Romane", "Guilla", "Justin", "Hugo")
             .mapIndexed { index, value -> Player(index, value) })
-        players[2].score = -46
-        players[4].score = 46
-        scores.add(listOf(-23, -23, -23, 23, 23))
-        scores.add(listOf(23, 23, -23, -23, 23))
     }
 
-    fun onSaveNewGame() {
-        scores.add(
-            computeGameScoresUseCase(
-                players,
-                bid.value!!,
-                oudlersAmount.value,
-                attackPoints.value.toInt()
+    fun onSaveNewGame(): Boolean {
+        val isFormValid = checkFormValidityUseCase(players, bid.value, attackPoints.value)
+        if (isFormValid) {
+            scores.add(
+                computeGameScoresUseCase(
+                    players,
+                    bid.value!!,
+                    oudlersAmount.value,
+                    attackPoints.value.toInt()
+                )
             )
-        )
-        val totalScores = updatePlayersScoreUseCase(players, scores)
-        players.forEachIndexed { index, player ->
-            player.score = totalScores[index]
+            val totalScores = updatePlayersScoreUseCase(players, scores)
+            players.forEachIndexed { index, player ->
+                player.score = totalScores[index]
+            }
+            resetDataForNextGame()
         }
-        resetDataForNextGame()
+        return isFormValid
     }
 
     private fun resetDataForNextGame() {

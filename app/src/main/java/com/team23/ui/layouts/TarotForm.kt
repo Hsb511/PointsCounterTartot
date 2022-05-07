@@ -34,8 +34,9 @@ fun TarotForm(tarotViewModel: TarotViewModel = viewModel(), navController: NavHo
         attackPoints = tarotViewModel.attackPoints,
         defensePoints = tarotViewModel.defensePoints,
         onSaveNewGame = {
-            tarotViewModel.onSaveNewGame()
-            navController.navigate("tarot")
+            if (tarotViewModel.onSaveNewGame()) {
+                navController.navigate("tarot")
+            }
         },
         onAttackPointsChanged = { attackPoints, defensePoints ->
             tarotViewModel.onFilterAttackPoints(attackPoints, defensePoints)

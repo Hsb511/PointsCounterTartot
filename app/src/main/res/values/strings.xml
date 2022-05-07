@@ -27,4 +27,10 @@
     <string name="tarot_handful">handful</string>
     <string name="tarot_misery">misery</string>
     <string name="tarot_slam">slam</string>
+
+    <!-- Snack bar errors -->
+    <string name="error_no_taker">No taker has been selected</string>
+    <string name="error_no_bid">No bid has been selected</string>
+    <string name="error_empty_score">The scores has not been set</string>
+    <string name="error_no_partner">No partner has been selected</string>
 </resources>

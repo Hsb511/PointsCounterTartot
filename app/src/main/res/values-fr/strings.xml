@@ -27,4 +27,10 @@
     <string name="tarot_handful">poignée</string>
     <string name="tarot_misery">misère</string>
     <string name="tarot_slam">chelem</string>
+
+    <!-- Snack bar errors -->
+    <string name="error_no_taker">Aucun preneur n\'a été sélectionné</string>
+    <string name="error_no_bid">Aucun contrat n\'a été sélectionné</string>
+    <string name="error_empty_score">Les points faits ne sont pas remplis</string>
+    <string name="error_no_partner">Aucun joueur appelé n\'a été sélectionné</string>
 </resources>
