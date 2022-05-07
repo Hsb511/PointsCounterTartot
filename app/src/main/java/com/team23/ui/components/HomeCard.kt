@@ -45,7 +45,9 @@ inline fun HomeCard(
                     Icon(Icons.Filled.Add, "Add")
                 }
             }) { padding ->
-            Column(modifier = Modifier.padding(padding).fillMaxWidth()) {
+            Column(modifier = Modifier
+                .padding(padding)
+                .fillMaxWidth()) {
                 Text(
                     text = title,
                     style = MaterialTheme.typography.h6,
@@ -112,5 +114,6 @@ fun HomeCardPreview() {
             players = listOf("Laure", "Romane", "Guilla", "Justin", "Hugo")
                 .mapIndexed { index, value -> Player(index, value) }
         )
-    )) { }
+    ), //onAddNewGame = {}
+    ) { }
 }

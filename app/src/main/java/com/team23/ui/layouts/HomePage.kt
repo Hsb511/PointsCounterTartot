@@ -38,54 +38,46 @@ fun HomePage(
             .fillMaxSize()
             .padding(4.dp)
     ) {
+        @Composable
+        fun tarotHomeCard() = HomeCard(
+            title = stringResource(id = R.string.home_tarot),
+            modifier = Modifier.weight(1f),
+            games = tarotGames
+        ) { }
+        @Composable
+        fun whistHomeCard() = HomeCard(
+            title = stringResource(id = R.string.home_whist),
+            modifier = Modifier.weight(1f),
+            games = emptyList()
+        ) { }
+        @Composable
+        fun coincheHomeCard() = HomeCard(
+            title = stringResource(id = R.string.home_coinche),
+            modifier = Modifier.weight(1f),
+            games = emptyList()
+        ) { }
+        @Composable
+        fun beloteHomeCard() = HomeCard(
+            title = stringResource(id = R.string.home_belote),
+            modifier = Modifier.weight(1f),
+            games = emptyList()
+        ) { }
 
         when (configuration.orientation) {
             Configuration.ORIENTATION_PORTRAIT -> {
-                HomeCard(
-                    title = stringResource(id = R.string.home_tarot),
-                    modifier = Modifier.weight(1f),
-                    games = tarotGames
-                ) { }
-                HomeCard(
-                    title = stringResource(id = R.string.home_whist),
-                    modifier = Modifier.weight(1f),
-                    games = emptyList()
-                ) { }
-                HomeCard(
-                    title = stringResource(id = R.string.home_coinche),
-                    modifier = Modifier.weight(1f),
-                    games = emptyList()
-                ) { }
-                HomeCard(
-                    title = stringResource(id = R.string.home_belote),
-                    modifier = Modifier.weight(1f),
-                    games = emptyList()
-                ) { }
+                tarotHomeCard()
+                whistHomeCard()
+                coincheHomeCard()
+                beloteHomeCard()
             }
             else -> {
                 Row(modifier = Modifier.weight(1f)) {
-                    HomeCard(
-                        title = stringResource(id = R.string.home_tarot),
-                        modifier = Modifier.weight(1f),
-                        games = tarotGames
-                    ) { }
-                    HomeCard(
-                        title = stringResource(id = R.string.home_whist),
-                        modifier = Modifier.weight(1f),
-                        games = emptyList()
-                    ) { }
+                    tarotHomeCard()
+                    whistHomeCard()
                 }
                 Row(modifier = Modifier.weight(1f)) {
-                    HomeCard(
-                        title = stringResource(id = R.string.home_coinche),
-                        modifier = Modifier.weight(1f),
-                        games = emptyList()
-                    ) { }
-                    HomeCard(
-                        title = stringResource(id = R.string.home_belote),
-                        modifier = Modifier.weight(1f),
-                        games = emptyList()
-                    ) { }
+                    coincheHomeCard()
+                    beloteHomeCard()
                 }
             }
         }
