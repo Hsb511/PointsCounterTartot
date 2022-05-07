@@ -1,8 +1,8 @@
 package com.team23.domain.usecases
 
 import com.team23.domain.enums.BidEnum
+import com.team23.domain.extensions.isNotSelfCalled
 import com.team23.domain.models.Player
-import com.team23.domain.models.isNotSelfCalled
 import javax.inject.Inject
 
 class ComputeGameScoresUseCase @Inject constructor() {
