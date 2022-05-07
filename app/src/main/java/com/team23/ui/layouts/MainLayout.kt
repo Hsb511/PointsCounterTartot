@@ -9,16 +9,19 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.team23.ui.viewmodels.HomePageViewModel
 import com.team23.ui.viewmodels.TarotViewModel
 
 @ExperimentalMaterialApi
 @Composable
 fun MainLayout() {
     val tarotViewModel: TarotViewModel = hiltViewModel()
+    val homePageViewModel: HomePageViewModel = hiltViewModel()
     val navController = rememberNavController()
 
     Box(modifier = Modifier.fillMaxSize()) {
-        NavHost(navController, startDestination = "tarot") {
+        NavHost(navController, startDestination = "home") {
+            composable(route = "home") { HomePage(homePageViewModel, navController) }
             composable(route = "tarot") { TarotScreen(tarotViewModel, navController) }
             composable(route = "tarotForm") { TarotForm(tarotViewModel, navController) }
         }
