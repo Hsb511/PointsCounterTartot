@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">PointsCounterTartot</string>
 
+    <!-- Home page -->
+    <string name="home_tarot">French tarot</string>
+    <string name="home_whist">Whist / Oh Hell</string>
+    <string name="home_coinche">Coinche</string>
+    <string name="home_belote">Belote</string>
+
     <!-- French tarot -->
     <string name="tarot_taker">taker</string>
     <string name="tarot_bid">bid</string>
