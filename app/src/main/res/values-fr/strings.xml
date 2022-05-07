@@ -6,6 +6,7 @@
     <string name="home_whist">Whist / Ascenseur</string>
     <string name="home_coinche">Coinche</string>
     <string name="home_belote">Belote</string>
+    <string name="home_round">Manches</string>
 
     <!-- French tarot -->
     <string name="tarot_taker">preneur</string>

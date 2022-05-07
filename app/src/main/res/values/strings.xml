@@ -6,6 +6,7 @@
     <string name="home_whist">Whist / Oh Hell</string>
     <string name="home_coinche">Coinche</string>
     <string name="home_belote">Belote</string>
+    <string name="home_round">Rounds</string>
 
     <!-- French tarot -->
     <string name="tarot_taker">taker</string>
