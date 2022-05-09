@@ -18,6 +18,7 @@ class TarotViewModel @Inject constructor(
     private val updatePlayersScoreUseCase: UpdatePlayersScoreUseCase,
     private val checkFormValidityUseCase: CheckFormValidityUseCase,
     private val checkIsPlayerAddingUseCase: CheckIsPlayerAddingUseCase,
+    private val checkAreAllPlayersNameSetUseCase: CheckAreAllPlayersNameSetUseCase
 ) : ViewModel() {
     private val defaultBid: BidEnum? = null
     private val defaultOudlersAmount = 0
@@ -44,6 +45,8 @@ class TarotViewModel @Inject constructor(
         players.add(Player(nextFreeId, ""))
         isAddingPlayer.value = checkIsPlayerAddingUseCase(players, scores)
     }
+
+    fun onAddNewGame() = checkAreAllPlayersNameSetUseCase(players)
 
     fun onSaveNewGame(): Boolean {
         val isFormValid = checkFormValidityUseCase(players, bid.value, attackPoints.value)

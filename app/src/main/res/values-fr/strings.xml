@@ -33,4 +33,5 @@
     <string name="error_no_bid">Aucun contrat n\'a été sélectionné</string>
     <string name="error_empty_score">Les points faits ne sont pas remplis</string>
     <string name="error_no_partner">Aucun joueur appelé n\'a été sélectionné</string>
+    <string name="error_player_name_invalid">Un des joueurs a un nom vide ou invalide</string>
 </resources>

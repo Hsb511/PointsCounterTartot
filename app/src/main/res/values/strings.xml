@@ -33,4 +33,5 @@
     <string name="error_no_bid">No bid has been selected</string>
     <string name="error_empty_score">The scores has not been set</string>
     <string name="error_no_partner">No partner has been selected</string>
+    <string name="error_player_name_invalid">One of the player\'s name is empty or invalid</string>
 </resources>

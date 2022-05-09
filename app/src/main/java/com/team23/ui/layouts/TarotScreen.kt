@@ -10,9 +10,12 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -22,16 +25,30 @@ import com.team23.domain.models.Player
 import com.team23.ui.components.GridContent
 import com.team23.ui.components.GridHeader
 import com.team23.ui.viewmodels.TarotViewModel
+import kotlinx.coroutines.launch
 
 @Composable
 fun TarotScreen(tarotViewModel: TarotViewModel = viewModel(), navController: NavHostController) {
+    val snackbarHostState = remember { SnackbarHostState() }
+    val coroutineScope = rememberCoroutineScope()
+    val errorPlayerInvalid = stringResource(id = R.string.error_player_name_invalid)
+
     TarotScreen(
         players = tarotViewModel.players,
         scores = tarotViewModel.scores,
         isAddingPlayer = tarotViewModel.isAddingPlayer.value,
         isGameStarted = tarotViewModel.isGameStarted.value,
+        snackbarHostState = snackbarHostState,
         onAddPlayer = { tarotViewModel.onAddPlayer() },
-        onAddGame = { navController.navigate("tarotForm") }
+        onAddGame = {
+            if (tarotViewModel.onAddNewGame()) {
+                navController.navigate("tarotForm")
+            } else {
+                coroutineScope.launch {
+                    snackbarHostState.showSnackbar(errorPlayerInvalid)
+                }
+            }
+        }
     )
 }
 
@@ -41,6 +58,7 @@ fun TarotScreen(
     scores: List<List<Int>>,
     isAddingPlayer: Boolean = false,
     isGameStarted: Boolean = true,
+    snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
     onAddPlayer: () -> Unit = {},
     onAddGame: () -> Unit = {}
 ) {
@@ -58,6 +76,12 @@ fun TarotScreen(
             ) {
                 Icon(Icons.Filled.Add, "Add")
             }
+        },
+        snackbarHost = {
+            SnackbarHost(
+                hostState = snackbarHostState,
+                snackbar = { Snackbar(it) }
+            )
         }) { padding ->
         Row {
             Card(
