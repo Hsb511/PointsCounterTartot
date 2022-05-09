@@ -29,6 +29,7 @@ fun TarotScreen(tarotViewModel: TarotViewModel = viewModel(), navController: Nav
         players = tarotViewModel.players,
         scores = tarotViewModel.scores,
         isAddingPlayer = tarotViewModel.isAddingPlayer.value,
+        isGameStarted = tarotViewModel.isGameStarted.value,
         onAddPlayer = { tarotViewModel.onAddPlayer() },
         onAddGame = { navController.navigate("tarotForm") }
     )
@@ -38,9 +39,10 @@ fun TarotScreen(tarotViewModel: TarotViewModel = viewModel(), navController: Nav
 fun TarotScreen(
     players: List<Player>,
     scores: List<List<Int>>,
-    isAddingPlayer: Boolean,
-    onAddPlayer: () -> Unit,
-    onAddGame: () -> Unit
+    isAddingPlayer: Boolean = false,
+    isGameStarted: Boolean = true,
+    onAddPlayer: () -> Unit = {},
+    onAddGame: () -> Unit = {}
 ) {
     val tableWidth = if (isAddingPlayer) 0.86f else 1f
 
@@ -73,7 +75,8 @@ fun TarotScreen(
                     item {
                         GridHeader(
                             players = players,
-                            rowHeight = rowHeight
+                            rowHeight = rowHeight,
+                            isGameStarted = isGameStarted,
                         )
                     }
                     items(scores) {
@@ -117,9 +120,6 @@ fun TarotScreenPreview() {
     TarotScreen(
         players = listOf("Laure", "Romane", "Guilla", "Hugo")
             .mapIndexed { id, name -> Player(id, name) },
-        scores = listOf(listOf(-23, -23, -23, 23), listOf(23, 23, -23, -23)),
-        isAddingPlayer = true,
-        onAddPlayer = {},
-        onAddGame = {}
+        scores = listOf(listOf(-23, -23, -23, 23), listOf(23, 23, -23, -23))
     )
 }
