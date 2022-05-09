@@ -61,6 +61,7 @@ fun HomeCard(
                 LazyColumn {
                     items(games) {
                         Row(
+                            verticalAlignment = Alignment.CenterVertically,
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(4.dp)
@@ -72,29 +73,35 @@ fun HomeCard(
                             Icon(
                                 imageVector = Icons.Filled.Person,
                                 contentDescription = "players amount",
+                                tint = MaterialTheme.colors.onPrimary,
                                 modifier = Modifier.padding(8.dp, 8.dp, 0.dp, 8.dp)
                             )
                             Text(
                                 text = it.players.size.toString(),
+                                color = MaterialTheme.colors.onPrimary,
                                 modifier = Modifier.padding(0.dp, 8.dp, 8.dp, 8.dp)
                             )
                             Icon(
                                 imageVector = Icons.Filled.DateRange,
                                 contentDescription = "creation date",
+                                tint = MaterialTheme.colors.onPrimary,
                                 modifier = Modifier.padding(0.dp, 8.dp)
                             )
                             Text(
                                 text = it.getSmallDate(),
-                                modifier = Modifier.padding(4.dp, 8.dp, 8.dp, 8.dp)
+                                color = MaterialTheme.colors.onPrimary,
+                                modifier = Modifier.padding(4.dp, 8.dp, 8.dp, 8.dp).fillMaxHeight()
                             )
                             Icon(
                                 imageVector = Icons.Filled.Refresh,
                                 contentDescription = "game rounds",
+                                tint = MaterialTheme.colors.onPrimary,
                                 modifier = Modifier.padding(0.dp, 8.dp)
                             )
                             Text(
                                 text = "${it.scores.size} ${stringResource(R.string.home_round)}",
-                                modifier = Modifier.padding(4.dp, 8.dp)
+                                color = MaterialTheme.colors.onPrimary,
+                                modifier = Modifier.padding(4.dp, 8.dp).fillMaxHeight()
                             )
                         }
                     }
