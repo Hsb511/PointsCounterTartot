@@ -31,7 +31,7 @@ class TarotViewModel @Inject constructor(
     val scores = mutableStateListOf<List<Int>>()
 
     init {
-        players.addAll(listOf("Laure", "Romane", "Guilla", "Justin", "Hugo")
+        players.addAll(listOf("Laure", "Guilla", "Hugo")
             .mapIndexed { index, value -> Player(index, value) })
     }
 

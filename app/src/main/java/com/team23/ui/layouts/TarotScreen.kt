@@ -26,6 +26,8 @@ fun TarotScreen(tarotViewModel: TarotViewModel = viewModel(), navController: Nav
     TarotScreen(
         players = tarotViewModel.players,
         scores = tarotViewModel.scores,
+        isAddingPlayer = true,
+        onAddPlayer = {},
         onAddGame = { navController.navigate("tarotForm") }
     )
 }
@@ -34,6 +36,8 @@ fun TarotScreen(tarotViewModel: TarotViewModel = viewModel(), navController: Nav
 fun TarotScreen(
     players: List<Player>,
     scores: List<List<Int>>,
+    isAddingPlayer: Boolean,
+    onAddPlayer: () -> Unit,
     onAddGame: () -> Unit
 ) {
     Scaffold(
@@ -61,7 +65,11 @@ fun TarotScreen(
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     item {
-                        GridHeader(players = players)
+                        GridHeader(
+                            players = players,
+                            isAddingPlayer = isAddingPlayer,
+                            onPlayerAdded = onAddPlayer
+                        )
                     }
                     items(scores) {
                         GridContent(scores = it)
@@ -81,6 +89,8 @@ fun TarotScreenPreview() {
         players = listOf("Laure", "Romane", "Guilla", "Justin", "Hugo")
             .mapIndexed { id, name -> Player(id, name) },
         scores = listOf(listOf(-23, -23, -23, 23, 23), listOf(23, 23, -23, -23, 23)),
+        isAddingPlayer = false,
+        onAddPlayer = {},
         onAddGame = {}
     )
 }
