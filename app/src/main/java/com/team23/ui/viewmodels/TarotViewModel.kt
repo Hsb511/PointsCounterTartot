@@ -17,6 +17,7 @@ class TarotViewModel @Inject constructor(
     private val computeGameScoresUseCase: ComputeGameScoresUseCase,
     private val updatePlayersScoreUseCase: UpdatePlayersScoreUseCase,
     private val checkFormValidityUseCase: CheckFormValidityUseCase,
+    private val checkIsPlayerAddingUseCase: CheckIsPlayerAddingUseCase
 ) : ViewModel() {
     private val defaultBid: BidEnum? = null
     private val defaultOudlersAmount = 0
@@ -29,15 +30,24 @@ class TarotViewModel @Inject constructor(
     val attackPoints = mutableStateOf(defaultAttackPoints)
     val defensePoints = mutableStateOf(defaultDefensePoints)
     val scores = mutableStateListOf<List<Int>>()
+    val isAddingPlayer = mutableStateOf(true)
 
     init {
         players.addAll(listOf("Laure", "Guilla", "Hugo")
             .mapIndexed { index, value -> Player(index, value) })
     }
 
+    fun onAddPlayer() {
+        // TODO CHANGE THAT BY USING DATA REPOSITORIES
+        val nextFreeId = players.maxByOrNull { it.id }!!.id + 1
+        players.add(Player(nextFreeId, nextFreeId.toString()))
+        isAddingPlayer.value = checkIsPlayerAddingUseCase(players, scores)
+    }
+
     fun onSaveNewGame(): Boolean {
         val isFormValid = checkFormValidityUseCase(players, bid.value, attackPoints.value)
         if (isFormValid) {
+            isAddingPlayer.value = checkIsPlayerAddingUseCase(players, scores)
             scores.add(
                 computeGameScoresUseCase(
                     players,
