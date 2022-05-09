@@ -47,7 +47,6 @@ class TarotViewModel @Inject constructor(
     fun onSaveNewGame(): Boolean {
         val isFormValid = checkFormValidityUseCase(players, bid.value, attackPoints.value)
         if (isFormValid) {
-            isAddingPlayer.value = checkIsPlayerAddingUseCase(players, scores)
             scores.add(
                 computeGameScoresUseCase(
                     players,
@@ -57,6 +56,7 @@ class TarotViewModel @Inject constructor(
                 )
             )
             val totalScores = updatePlayersScoreUseCase(players, scores)
+            isAddingPlayer.value = checkIsPlayerAddingUseCase(players, scores)
             players.forEachIndexed { index, player ->
                 player.score = totalScores[index]
             }
