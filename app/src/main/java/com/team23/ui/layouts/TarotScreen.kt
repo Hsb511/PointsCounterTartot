@@ -10,8 +10,10 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -26,6 +28,7 @@ import com.team23.ui.components.GridContent
 import com.team23.ui.components.GridHeader
 import com.team23.ui.viewmodels.TarotViewModel
 import kotlinx.coroutines.launch
+import java.util.Collections.addAll
 
 @Composable
 fun TarotScreen(tarotViewModel: TarotViewModel = viewModel(), navController: NavHostController) {
@@ -40,6 +43,7 @@ fun TarotScreen(tarotViewModel: TarotViewModel = viewModel(), navController: Nav
         isGameStarted = tarotViewModel.isGameStarted.value,
         snackbarHostState = snackbarHostState,
         onAddPlayer = { tarotViewModel.onAddPlayer() },
+        onModifierPlayerName = { playerName -> tarotViewModel.onFilterPlayerName(playerName) },
         onAddGame = {
             if (tarotViewModel.onAddNewGame()) {
                 navController.navigate("tarotForm")
@@ -60,7 +64,8 @@ fun TarotScreen(
     isGameStarted: Boolean = true,
     snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
     onAddPlayer: () -> Unit = {},
-    onAddGame: () -> Unit = {}
+    onAddGame: () -> Unit = {},
+    onModifierPlayerName: (String) -> String
 ) {
     val tableWidth = if (isAddingPlayer) 0.86f else 1f
 
@@ -101,6 +106,7 @@ fun TarotScreen(
                             players = players,
                             rowHeight = rowHeight,
                             isGameStarted = isGameStarted,
+                            onModifierPlayerName = onModifierPlayerName
                         )
                     }
                     items(scores) {
@@ -144,6 +150,7 @@ fun TarotScreenPreview() {
     TarotScreen(
         players = listOf("Laure", "Romane", "Guilla", "Hugo")
             .mapIndexed { id, name -> Player(id, name) },
-        scores = listOf(listOf(-23, -23, -23, 23), listOf(23, 23, -23, -23))
+        scores = listOf(listOf(-23, -23, -23, 23), listOf(23, 23, -23, -23)),
+        onModifierPlayerName = { "" }
     )
 }

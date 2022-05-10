@@ -9,6 +9,10 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
@@ -22,6 +26,7 @@ import com.team23.domain.models.Player
 fun GridHeader(
     players: List<Player>,
     rowHeight: Dp,
+    onModifierPlayerName: (String) -> String,
     isGameStarted: Boolean = false
 ) {
     LazyRow(
@@ -30,7 +35,8 @@ fun GridHeader(
             .fillMaxWidth()
             .wrapContentHeight()
     ) {
-        items(players) {
+        items(players) { player ->
+            val playerName = remember { mutableStateOf(player.name) }
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
@@ -41,21 +47,24 @@ fun GridHeader(
             ) {
                 if (isGameStarted) {
                     Text(
-                        text = it.name,
+                        text = player.name,
                         color = MaterialTheme.colors.onPrimary,
                         style = MaterialTheme.typography.subtitle1,
                         modifier = Modifier.padding(0.dp, 4.dp, 0.dp, 0.dp)
                     )
                     Text(
-                        text = it.score.toString(),
+                        text = player.score.toString(),
                         color = MaterialTheme.colors.onPrimary,
                         style = MaterialTheme.typography.h6,
                         modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 8.dp)
                     )
                 } else {
                     BasicTextField(
-                        value = it.name,
-                        onValueChange = { /* TODO */ },
+                        value = playerName.value,
+                        onValueChange = {
+                            playerName.value = onModifierPlayerName(it)
+                            player.name = onModifierPlayerName(it)
+                        },
                         textStyle = TextStyle(
                             color = MaterialTheme.colors.onPrimary,
                             fontWeight = MaterialTheme.typography.subtitle1.fontWeight,
@@ -75,8 +84,13 @@ fun GridHeader(
 @Composable
 fun GridHeaderPreview() {
     GridHeader(
-        players = listOf("Laure", "Romane", "Guilla", "Justin", "Hugo")
-            .mapIndexed { id, name -> Player(id, name) },
-        rowHeight = 60.dp
+        players = remember {
+            mutableStateListOf<Player>().apply {
+                this.addAll(listOf("Laure", "Romane", "Guilla", "Hugo")
+                    .mapIndexed { id, name -> Player(id, name) })
+            }
+        },
+        rowHeight = 60.dp,
+        onModifierPlayerName = { "" }
     )
 }

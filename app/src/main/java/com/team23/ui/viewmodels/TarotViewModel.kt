@@ -12,13 +12,14 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TarotViewModel @Inject constructor(
+    private val filterPlayerNameUseCase: FilterPlayerNameUseCase,
     private val filterAttackPointsUseCase: FilterAttackPointsUseCase,
     private val filterDefensePointsUseCase: FilterDefensePointsUseCase,
     private val computeGameScoresUseCase: ComputeGameScoresUseCase,
     private val updatePlayersScoreUseCase: UpdatePlayersScoreUseCase,
     private val checkFormValidityUseCase: CheckFormValidityUseCase,
     private val checkIsPlayerAddingUseCase: CheckIsPlayerAddingUseCase,
-    private val checkAreAllPlayersNameSetUseCase: CheckAreAllPlayersNameSetUseCase
+    private val checkAreAllPlayersNameSetUseCase: CheckAreAllPlayersNameSetUseCase,
 ) : ViewModel() {
     private val defaultBid: BidEnum? = null
     private val defaultOudlersAmount = 0
@@ -80,6 +81,8 @@ class TarotViewModel @Inject constructor(
         attackPoints.value = defaultAttackPoints
         defensePoints.value = defaultDefensePoints
     }
+
+    fun onFilterPlayerName(playerName: String) = filterPlayerNameUseCase(playerName)
 
     fun onFilterAttackPoints(attackPoints: String, defensePoints: String): String {
         this.defensePoints.value = filterDefensePointsUseCase(attackPoints, defensePoints)
