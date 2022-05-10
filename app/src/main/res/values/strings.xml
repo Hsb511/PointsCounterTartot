@@ -20,8 +20,8 @@
     <string name="tarot_monde">21</string>
     <string name="tarot_fool">fool</string>
     <string name="tarot_scores">scores</string>
-    <string name="tarot_attack">att</string>
-    <string name="tarot_defense">def</string>
+    <string name="tarot_attack">attack</string>
+    <string name="tarot_defense">defense</string>
     <string name="tarot_takers_partner">takers partner</string>
     <string name="tarot_bonuses">bonuses</string>
     <string name="tarot_handful">handful</string>

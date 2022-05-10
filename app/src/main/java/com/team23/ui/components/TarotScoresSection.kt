@@ -42,6 +42,7 @@ fun TarotScoresSection(
             onValueChange = {
                 attackPoints.value = onAttackPointsChanged(it, defensePoints.value)
             },
+            singleLine = true,
             shape = RoundedCornerShape(32.dp),
             colors = TextFieldDefaults.textFieldColors(
                 focusedIndicatorColor = Color.Transparent,
@@ -59,6 +60,7 @@ fun TarotScoresSection(
         TextField(
             value = defensePoints.value,
             onValueChange = {/* TODO */ },
+            singleLine = true,
             shape = RoundedCornerShape(32.dp),
             colors = TextFieldDefaults.textFieldColors(
                 focusedIndicatorColor = Color.Transparent,

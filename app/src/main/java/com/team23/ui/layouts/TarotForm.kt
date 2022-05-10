@@ -76,12 +76,6 @@ fun TarotForm(
 
             TarotOudlersSection(oudlersAmount)
 
-            TarotScoresSection(
-                attackPoints,
-                defensePoints,
-                onAttackPointsChanged
-            )
-
             if (players.size == 5) {
                 TarotPlayersSection(
                     title = "${stringResource(id = R.string.tarot_takers_partner)}:",
@@ -89,6 +83,12 @@ fun TarotForm(
                     isTakerSection = false
                 )
             }
+
+            TarotScoresSection(
+                attackPoints,
+                defensePoints,
+                onAttackPointsChanged
+            )
 
             /*
             TarotChipsSection(
