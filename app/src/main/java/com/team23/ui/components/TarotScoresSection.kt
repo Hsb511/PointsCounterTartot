@@ -29,46 +29,52 @@ fun TarotScoresSection(
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(8.dp, 8.dp, 0.dp, 8.dp)
+        modifier = Modifier.fillMaxWidth().padding(8.dp)
     ) {
-        Text(
-            text = "${stringResource(id = R.string.tarot_attack)}:",
-            modifier = Modifier.weight(0.9f)
-        )
-        TextField(
-            value = attackPoints.value,
-            onValueChange = {
-                attackPoints.value = onAttackPointsChanged(it, defensePoints.value)
-            },
-            singleLine = true,
-            shape = RoundedCornerShape(32.dp),
-            colors = TextFieldDefaults.textFieldColors(
-                focusedIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent,
-                disabledIndicatorColor = Color.Transparent
-            ),
-            modifier = Modifier.weight(3.8f)
-        )
-        Text(
-            text = "${stringResource(id = R.string.tarot_defense)}:",
-            modifier = Modifier
-                .weight(1.1f)
-                .padding(8.dp, 0.dp, 0.dp, 0.dp)
-        )
-        TextField(
-            value = defensePoints.value,
-            onValueChange = {/* TODO */ },
-            singleLine = true,
-            shape = RoundedCornerShape(32.dp),
-            colors = TextFieldDefaults.textFieldColors(
-                focusedIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent,
-                disabledIndicatorColor = Color.Transparent
-            ),
-            modifier = Modifier.weight(3.8f)
-        )
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.weight(1f)
+        ) {
+            Text(
+                text = "${stringResource(id = R.string.tarot_attack)}:",
+                modifier = Modifier.padding(4.dp)
+            )
+            TextField(
+                value = attackPoints.value,
+                onValueChange = {
+                    attackPoints.value = onAttackPointsChanged(it, defensePoints.value)
+                },
+                singleLine = true,
+                shape = RoundedCornerShape(32.dp),
+                colors = TextFieldDefaults.textFieldColors(
+                    focusedIndicatorColor = Color.Transparent,
+                    unfocusedIndicatorColor = Color.Transparent,
+                    disabledIndicatorColor = Color.Transparent
+                ),
+                modifier = Modifier.fillMaxWidth().padding(4.dp)
+            )
+        }
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.weight(1f)
+        ) {
+            Text(
+                text = "${stringResource(id = R.string.tarot_defense)}:",
+                modifier = Modifier.padding(4.dp)
+            )
+            TextField(
+                value = defensePoints.value,
+                onValueChange = {/* TODO */ },
+                singleLine = true,
+                shape = RoundedCornerShape(32.dp),
+                colors = TextFieldDefaults.textFieldColors(
+                    focusedIndicatorColor = Color.Transparent,
+                    unfocusedIndicatorColor = Color.Transparent,
+                    disabledIndicatorColor = Color.Transparent
+                ),
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
     }
 }
 
@@ -76,8 +82,8 @@ fun TarotScoresSection(
 @Composable
 fun TarotScoresSectionPreview() {
     TarotScoresSection(
-        attackPoints = remember { mutableStateOf("23")},
-        defensePoints  = remember { mutableStateOf("68")},
+        attackPoints = remember { mutableStateOf("23") },
+        defensePoints = remember { mutableStateOf("68") },
         onAttackPointsChanged = String::plus
     )
 }
