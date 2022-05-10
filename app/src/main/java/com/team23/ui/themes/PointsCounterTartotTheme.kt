@@ -14,5 +14,5 @@ fun PointsCounterTartotTheme(
 ) {
     val colors = if (darkTheme) { DarkColorPalette } else { LightColorPalette }
 
-    MaterialTheme(colors = colors, typography = Typography(), shapes = Shapes(), content = content)
+    MaterialTheme(colors = colors, typography = Typography(), shapes = PointsCounterTartotShapes, content = content)
 }

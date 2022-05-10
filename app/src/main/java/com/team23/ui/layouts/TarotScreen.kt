@@ -90,14 +90,14 @@ fun TarotScreen(
         }) { padding ->
         Row {
             Card(
-                shape = RoundedCornerShape(8.dp),
+                shape = MaterialTheme.shapes.small,
                 modifier = Modifier
                     .padding(padding)
                     .fillMaxWidth(tableWidth)
                     .border(
-                        1.dp,
-                        MaterialTheme.colors.primaryVariant,
-                        shape = RoundedCornerShape(8.dp)
+                        width = 1.dp,
+                        color = MaterialTheme.colors.primaryVariant,
+                        shape = MaterialTheme.shapes.small
                     )
             ) {
                 LazyColumn {
@@ -127,7 +127,7 @@ fun TarotScreen(
                         onClick = { onAddPlayer() },
                         modifier = Modifier.background(
                             color = MaterialTheme.colors.secondary,
-                            shape = RoundedCornerShape(32.dp)
+                            shape = MaterialTheme.shapes.large
                         )
                     ) {
                         Icon(

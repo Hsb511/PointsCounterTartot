@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
@@ -45,7 +46,7 @@ fun TarotScoresSection(
                     attackPoints.value = onAttackPointsChanged(it, defensePoints.value)
                 },
                 singleLine = true,
-                shape = RoundedCornerShape(32.dp),
+                shape = MaterialTheme.shapes.large,
                 colors = TextFieldDefaults.textFieldColors(
                     focusedIndicatorColor = Color.Transparent,
                     unfocusedIndicatorColor = Color.Transparent,
@@ -66,7 +67,7 @@ fun TarotScoresSection(
                 value = defensePoints.value,
                 onValueChange = {/* TODO */ },
                 singleLine = true,
-                shape = RoundedCornerShape(32.dp),
+                shape = MaterialTheme.shapes.large,
                 colors = TextFieldDefaults.textFieldColors(
                     focusedIndicatorColor = Color.Transparent,
                     unfocusedIndicatorColor = Color.Transparent,

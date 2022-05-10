@@ -67,7 +67,7 @@ fun HomeCard(
                                 .padding(4.dp)
                                 .background(
                                     color = MaterialTheme.colors.primary,
-                                    shape = RoundedCornerShape(16.dp)
+                                    shape = MaterialTheme.shapes.medium
                                 )
                         ) {
                             Icon(
