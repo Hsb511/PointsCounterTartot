@@ -4,5 +4,6 @@ import com.team23.domain.models.Player
 import javax.inject.Inject
 
 class CheckAreAllPlayersNameSetUseCase @Inject constructor() {
-    operator fun invoke(players: List<Player>) = players.none { it.name.isEmpty() }
+    operator fun invoke(players: List<Player>) = players.none { it.name.isEmpty() } &&
+            players.groupingBy { it.name }.eachCount().none { it.value > 1 }
 }
