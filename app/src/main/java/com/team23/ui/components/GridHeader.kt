@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -70,7 +71,8 @@ fun GridHeader(
                             fontWeight = MaterialTheme.typography.subtitle1.fontWeight,
                             fontSize = MaterialTheme.typography.subtitle1.fontSize,
                             letterSpacing = MaterialTheme.typography.subtitle1.letterSpacing,
-                            textAlign = TextAlign.Center
+                            textAlign = TextAlign.Center,
+                            textDecoration = TextDecoration.Underline
                         ),
                         modifier = Modifier.padding(0.dp, 4.dp, 0.dp, 0.dp)
                     )
