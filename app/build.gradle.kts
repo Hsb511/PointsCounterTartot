@@ -67,6 +67,11 @@ dependencies {
     kapt("com.google.dagger:hilt-android-compiler:${Versions.HILT}")
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
 
+    // Room
+    implementation("androidx.room:room-runtime:${Versions.ROOM}")
+    annotationProcessor("androidx.room:room-compiler:${Versions.ROOM}")
+    kapt("androidx.room:room-compiler:${Versions.ROOM}")
+
     // Testing
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
