@@ -22,6 +22,7 @@ import com.team23.ui.viewmodels.HomePageViewModel
 
 @Composable
 fun HomePage(homePageViewModel: HomePageViewModel = viewModel(), navController: NavHostController) {
+    homePageViewModel.refreshTarotGames()
     HomePage(
         tarotGames = homePageViewModel.tarotGames,
         onNewTarotGame = {

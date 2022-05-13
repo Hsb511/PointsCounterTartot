@@ -10,7 +10,7 @@ import javax.inject.Inject
 class GameRoomRepository @Inject constructor(
     private val gameDao: GameDao
 ) : GameRepository {
-    override fun loadGames(): List<Game> = gameDao.loadAll().toModels()
+    override suspend fun loadAllGames(): List<Game> = gameDao.loadAll().toModels()
 
     override suspend fun saveNewGame(game: Game) {
         gameDao.insert(game.toEntity())
