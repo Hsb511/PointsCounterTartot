@@ -92,7 +92,7 @@ fun TarotScreen(
                     .fillMaxWidth(tableWidth)
                     .border(
                         width = 1.dp,
-                        color = MaterialTheme.colors.primaryVariant,
+                        color = MaterialTheme.colors.onSecondary,
                         shape = MaterialTheme.shapes.small
                     )
             ) {

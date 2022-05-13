@@ -16,6 +16,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.team23.ui.themes.IndianRed
+import com.team23.ui.themes.Olivine
 
 
 @Composable
@@ -26,10 +28,10 @@ fun GridContent(scores: List<Int>) {
     val minScores = scores.filter { it == scores.minOrNull()!!}
     if (maxScores.size == 1) {
         takerPosition = scores.indexOf(maxScores[0])
-        takerScoreColor = MaterialTheme.colors.primary
+        takerScoreColor = Olivine
     } else if (minScores.size == 1) {
         takerPosition =  scores.indexOf(minScores[0])
-        takerScoreColor = MaterialTheme.colors.secondary
+        takerScoreColor = IndianRed
     }
     LazyRow(modifier = Modifier.fillMaxWidth()) {
 
@@ -45,7 +47,7 @@ fun GridContent(scores: List<Int>) {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
                     .fillParentMaxWidth(1f / scores.size)
-                    .border(BorderStroke(1.dp, MaterialTheme.colors.primaryVariant))
+                    .border(BorderStroke(1.dp, MaterialTheme.colors.onSecondary))
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(

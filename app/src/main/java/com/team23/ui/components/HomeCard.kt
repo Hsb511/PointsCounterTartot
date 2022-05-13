@@ -66,41 +66,41 @@ fun HomeCard(
                                 .fillMaxWidth()
                                 .padding(4.dp)
                                 .background(
-                                    color = MaterialTheme.colors.primary,
+                                    color = MaterialTheme.colors.secondaryVariant,
                                     shape = MaterialTheme.shapes.medium
                                 )
                         ) {
                             Icon(
                                 imageVector = Icons.Filled.Person,
                                 contentDescription = "players amount",
-                                tint = MaterialTheme.colors.onPrimary,
+                                tint = MaterialTheme.colors.primary,
                                 modifier = Modifier.padding(8.dp, 8.dp, 0.dp, 8.dp)
                             )
                             Text(
                                 text = it.players.size.toString(),
-                                color = MaterialTheme.colors.onPrimary,
+                                color = MaterialTheme.colors.onBackground,
                                 modifier = Modifier.padding(0.dp, 8.dp, 8.dp, 8.dp)
                             )
                             Icon(
                                 imageVector = Icons.Filled.DateRange,
                                 contentDescription = "creation date",
-                                tint = MaterialTheme.colors.onPrimary,
+                                tint = MaterialTheme.colors.primary,
                                 modifier = Modifier.padding(0.dp, 8.dp)
                             )
                             Text(
                                 text = it.getSmallDate(),
-                                color = MaterialTheme.colors.onPrimary,
+                                color = MaterialTheme.colors.onBackground,
                                 modifier = Modifier.padding(4.dp, 8.dp, 8.dp, 8.dp).fillMaxHeight()
                             )
                             Icon(
                                 imageVector = Icons.Filled.Refresh,
                                 contentDescription = "game rounds",
-                                tint = MaterialTheme.colors.onPrimary,
+                                tint = MaterialTheme.colors.primary,
                                 modifier = Modifier.padding(0.dp, 8.dp)
                             )
                             Text(
                                 text = "${it.scores.size} ${stringResource(R.string.home_round)}",
-                                color = MaterialTheme.colors.onPrimary,
+                                color = MaterialTheme.colors.onBackground,
                                 modifier = Modifier.padding(4.dp, 8.dp).fillMaxHeight()
                             )
                         }

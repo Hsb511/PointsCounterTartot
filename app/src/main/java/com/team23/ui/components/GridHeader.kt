@@ -43,19 +43,19 @@ fun GridHeader(
                 modifier = Modifier
                     .fillParentMaxWidth(1f / players.size)
                     .height(rowHeight)
-                    .border(BorderStroke(1.dp, MaterialTheme.colors.primaryVariant))
-                    .background(color = MaterialTheme.colors.primary)
+                    .border(BorderStroke(1.dp, MaterialTheme.colors.onSecondary))
+                    .background(color = MaterialTheme.colors.secondaryVariant)
             ) {
                 if (isGameStarted) {
                     Text(
                         text = player.name,
-                        color = MaterialTheme.colors.onPrimary,
+                        color = MaterialTheme.colors.onBackground,
                         style = MaterialTheme.typography.subtitle1,
                         modifier = Modifier.padding(0.dp, 4.dp, 0.dp, 0.dp)
                     )
                     Text(
                         text = player.score.toString(),
-                        color = MaterialTheme.colors.onPrimary,
+                        color = MaterialTheme.colors.onBackground,
                         style = MaterialTheme.typography.h6,
                         modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 8.dp)
                     )
@@ -67,7 +67,7 @@ fun GridHeader(
                             player.name = onModifierPlayerName(it)
                         },
                         textStyle = TextStyle(
-                            color = MaterialTheme.colors.onPrimary,
+                            color = MaterialTheme.colors.onBackground,
                             fontWeight = MaterialTheme.typography.subtitle1.fontWeight,
                             fontSize = MaterialTheme.typography.subtitle1.fontSize,
                             letterSpacing = MaterialTheme.typography.subtitle1.letterSpacing,
