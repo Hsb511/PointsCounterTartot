@@ -26,6 +26,7 @@ class TarotViewModel @Inject constructor(
     private val defaultAttackPoints = ""
     private val defaultDefensePoints = ""
 
+    lateinit var gameId: String
     val players = mutableStateListOf<Player>()
     val bid: MutableState<BidEnum?> = mutableStateOf(defaultBid)
     val oudlersAmount = mutableStateOf(defaultOudlersAmount)

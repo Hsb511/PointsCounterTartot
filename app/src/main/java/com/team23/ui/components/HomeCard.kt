@@ -1,10 +1,11 @@
 package com.team23.ui.components
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -23,14 +24,18 @@ import com.team23.domain.extensions.getSmallDate
 import com.team23.domain.models.Game
 import com.team23.domain.models.Player
 
+@ExperimentalMaterialApi
+@ExperimentalFoundationApi
 @Composable
 fun HomeCard(
     title: String,
     games: List<Game>,
     onAddNewGame: () -> Unit,
+    onNavigateOldGame: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Card(
+        onClick = {  },
         modifier = modifier
             .fillMaxSize()
             .padding(8.dp)
@@ -68,6 +73,9 @@ fun HomeCard(
                                 .background(
                                     color = MaterialTheme.colors.secondaryVariant,
                                     shape = MaterialTheme.shapes.medium
+                                ).combinedClickable(
+                                    onLongClick = { /* TODO HANDLE DELETION */ },
+                                    onClick = { onNavigateOldGame(it.id) }
                                 )
                         ) {
                             Icon(
@@ -111,6 +119,8 @@ fun HomeCard(
     }
 }
 
+@ExperimentalFoundationApi
+@ExperimentalMaterialApi
 @Preview(showSystemUi = true)
 @Composable
 fun HomeCardPreview() {
@@ -121,6 +131,8 @@ fun HomeCardPreview() {
             players = listOf("Laure", "Romane", "Guilla", "Justin", "Hugo")
                 .mapIndexed { index, value -> Player(index, value) }
         )
-    ), onAddNewGame = { }
+    ),
+        onAddNewGame = { },
+        onNavigateOldGame = {}
     )
 }

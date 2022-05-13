@@ -1,10 +1,12 @@
 package com.team23.ui.layouts
 
 import android.content.res.Configuration
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
@@ -20,22 +22,30 @@ import com.team23.domain.models.Player
 import com.team23.ui.components.HomeCard
 import com.team23.ui.viewmodels.HomePageViewModel
 
+@ExperimentalFoundationApi
+@ExperimentalMaterialApi
 @Composable
 fun HomePage(homePageViewModel: HomePageViewModel = viewModel(), navController: NavHostController) {
     homePageViewModel.refreshTarotGames()
     HomePage(
         tarotGames = homePageViewModel.tarotGames,
         onNewTarotGame = {
-            navController.navigate("tarot")
             homePageViewModel.createNewTarotGame()
+            navController.navigate("tarot")
+        },
+        onOldTarotGame = { gameId ->
+            navController.navigate("tarot/$gameId")
         }
     )
 }
 
+@ExperimentalFoundationApi
+@ExperimentalMaterialApi
 @Composable
 fun HomePage(
     tarotGames: List<Game>,
-    onNewTarotGame: () -> Unit
+    onNewTarotGame: () -> Unit,
+    onOldTarotGame: (Int) -> Unit
 ) {
     val configuration = LocalConfiguration.current
 
@@ -49,28 +59,32 @@ fun HomePage(
             title = stringResource(id = R.string.home_tarot),
             modifier = Modifier.weight(1f),
             games = tarotGames,
-            onAddNewGame = { onNewTarotGame() }
+            onAddNewGame = { onNewTarotGame() },
+            onNavigateOldGame = { gameId -> onOldTarotGame(gameId) }
         )
         @Composable
         fun whistHomeCard() = HomeCard(
             title = stringResource(id = R.string.home_whist),
             modifier = Modifier.weight(1f),
             games = emptyList(),
-            onAddNewGame = { }
+            onAddNewGame = { },
+            onNavigateOldGame = { gameId -> onOldTarotGame(gameId) }
         )
         @Composable
         fun coincheHomeCard() = HomeCard(
             title = stringResource(id = R.string.home_coinche),
             modifier = Modifier.weight(1f),
             games = emptyList(),
-            onAddNewGame = { }
+            onAddNewGame = { },
+            onNavigateOldGame = { gameId -> onOldTarotGame(gameId) }
         )
         @Composable
         fun beloteHomeCard() = HomeCard(
             title = stringResource(id = R.string.home_belote),
             modifier = Modifier.weight(1f),
             games = emptyList(),
-            onAddNewGame = { }
+            onAddNewGame = { },
+            onNavigateOldGame = { gameId -> onOldTarotGame(gameId) }
         )
 
         when (configuration.orientation) {
@@ -95,6 +109,8 @@ fun HomePage(
 
 }
 
+@ExperimentalFoundationApi
+@ExperimentalMaterialApi
 @Preview(showSystemUi = true)
 @Composable
 fun HomePagePreview() {
@@ -107,6 +123,7 @@ fun HomePagePreview() {
                     .mapIndexed { index, value -> Player(index, value) }
             )
         ),
-        onNewTarotGame = { }
+        onNewTarotGame = { },
+        onOldTarotGame = { }
     )
 }

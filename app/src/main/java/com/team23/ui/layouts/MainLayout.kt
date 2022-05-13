@@ -1,5 +1,6 @@
 package com.team23.ui.layouts
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.ExperimentalMaterialApi
@@ -12,6 +13,7 @@ import androidx.navigation.compose.rememberNavController
 import com.team23.ui.viewmodels.HomePageViewModel
 import com.team23.ui.viewmodels.TarotViewModel
 
+@ExperimentalFoundationApi
 @ExperimentalMaterialApi
 @Composable
 fun MainLayout() {
@@ -22,7 +24,13 @@ fun MainLayout() {
     Box(modifier = Modifier.fillMaxSize()) {
         NavHost(navController, startDestination = "home") {
             composable(route = "home") { HomePage(homePageViewModel, navController) }
-            composable(route = "tarot") { TarotScreen(tarotViewModel, navController) }
+            composable(route = "tarot/{gameId}") { backStackEntry ->
+                TarotScreen(
+                    tarotViewModel,
+                    navController,
+                    backStackEntry.arguments?.getInt("gameId" , 0) ?: 0
+                )
+            }
             composable(route = "tarotForm") { TarotForm(tarotViewModel, navController) }
         }
     }

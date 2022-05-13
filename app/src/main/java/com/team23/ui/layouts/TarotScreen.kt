@@ -27,7 +27,12 @@ import com.team23.ui.viewmodels.TarotViewModel
 import kotlinx.coroutines.launch
 
 @Composable
-fun TarotScreen(tarotViewModel: TarotViewModel = viewModel(), navController: NavHostController) {
+fun TarotScreen(
+    tarotViewModel: TarotViewModel = viewModel(),
+    navController: NavHostController,
+    gameId: Int
+) {
+    tarotViewModel.gameId = gameId.toString()
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
     val errorPlayerInvalid = stringResource(id = R.string.error_player_name_invalid)
