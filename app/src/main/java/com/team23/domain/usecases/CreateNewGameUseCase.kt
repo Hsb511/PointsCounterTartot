@@ -12,21 +12,11 @@ class CreateNewGameUseCase @Inject constructor(
     suspend fun execute(gameTypeEnum: GameTypeEnum) {
         gameRepository.saveNewGame(
             Game(
-                id = -1,
                 gameType = gameTypeEnum,
                 players = listOf(
-                    Player(
-                        id = -1,
-                        name = ""
-                    ),
-                    Player(
-                        id = -1,
-                        name = ""
-                    ),
-                    Player(
-                        id = -1,
-                        name = ""
-                    )
+                    Player(name = ""),
+                    Player(name = ""),
+                    Player(name = "")
                 )
             )
         )

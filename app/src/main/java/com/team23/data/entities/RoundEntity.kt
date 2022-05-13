@@ -5,7 +5,8 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "T_ROUND")
 data class RoundEntity(
-    @PrimaryKey val roundId: Int,
+    @PrimaryKey(autoGenerate = true)
+    val roundId: Int = 0,
     val gameId: Int,
 )
 
