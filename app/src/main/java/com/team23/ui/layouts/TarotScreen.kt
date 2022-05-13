@@ -5,15 +5,12 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -28,7 +25,6 @@ import com.team23.ui.components.GridContent
 import com.team23.ui.components.GridHeader
 import com.team23.ui.viewmodels.TarotViewModel
 import kotlinx.coroutines.launch
-import java.util.Collections.addAll
 
 @Composable
 fun TarotScreen(tarotViewModel: TarotViewModel = viewModel(), navController: NavHostController) {
