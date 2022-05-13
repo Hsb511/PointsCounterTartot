@@ -9,12 +9,16 @@ import com.team23.data.daos.GameDao
 import com.team23.data.daos.PlayerDao
 import com.team23.data.daos.RoundDao
 import com.team23.data.entities.GameEntity
+import com.team23.data.entities.GamePlayerCrossRefEntity
 import com.team23.data.entities.PlayerEntity
 import com.team23.data.entities.RoundEntity
 
 @Database(
     entities = [
-        GameEntity::class, PlayerEntity::class, RoundEntity::class
+        GameEntity::class,
+        PlayerEntity::class,
+        GamePlayerCrossRefEntity::class,
+        RoundEntity::class
     ],
     version = BDD_VERSION
 )

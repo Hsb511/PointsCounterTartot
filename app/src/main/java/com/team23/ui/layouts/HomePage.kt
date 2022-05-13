@@ -26,7 +26,7 @@ fun HomePage(homePageViewModel: HomePageViewModel = viewModel(), navController: 
         tarotGames = homePageViewModel.tarotGames,
         onNewTarotGame = {
             navController.navigate("tarot")
-            // TODO PERSIST THE NEW GAME THROUGH THE VM
+            homePageViewModel.createNewTarotGame()
         }
     )
 }

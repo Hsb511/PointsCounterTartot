@@ -2,17 +2,30 @@ package com.team23.ui.viewmodels
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.team23.domain.enums.GameTypeEnum
 import com.team23.domain.models.Game
 import com.team23.domain.models.Player
+import com.team23.domain.usecases.CreateNewGameUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
-class HomePageViewModel @Inject constructor() : ViewModel() {
+class HomePageViewModel @Inject constructor(
+    private val createNewGameUseCase: CreateNewGameUseCase
+) : ViewModel() {
     val tarotGames = mutableStateListOf<Game>()
 
+    fun createNewTarotGame() {
+        viewModelScope.launch(Dispatchers.IO) {
+            createNewGameUseCase.execute(GameTypeEnum.FRENCH_TAROT)
+        }
+    }
+
+    /*
     init {
         tarotGames.addAll(
             listOf(
@@ -40,5 +53,5 @@ class HomePageViewModel @Inject constructor() : ViewModel() {
                 )
             )
         )
-    }
+    }*/
 }

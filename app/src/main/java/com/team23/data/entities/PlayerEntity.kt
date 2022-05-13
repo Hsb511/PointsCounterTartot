@@ -3,8 +3,8 @@ package com.team23.data.entities
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity
+@Entity(tableName = "T_PLAYER")
 data class PlayerEntity(
-    @PrimaryKey val id: Int,
+    @PrimaryKey val playerId: Int,
     val name: String,
 )

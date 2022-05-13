@@ -9,11 +9,11 @@ data class GameEmbeddedEntity(
     @Relation(
         parentColumn = "gameId",
         entityColumn = "playerId",
-        associateBy = Junction(GameEmbeddedEntity::class)
+        associateBy = Junction(GamePlayerCrossRefEntity::class)
     )
     val players: List<PlayerEntity>,
     @Relation(
-        parentColumn = "id",
+        parentColumn = "gameId",
         entityColumn = "gameId"
     )
     val rounds: List<RoundEntity>
