@@ -9,7 +9,7 @@ import com.team23.data.entities.GameEntity
 @Dao
 interface GameDao {
     @Query("SELECT * FROM T_GAME WHERE GAMEID = :gameId")
-    fun findEmbeddedById(gameId: Int): GameEmbeddedEntity
+    fun findEmbeddedById(gameId: Int): GameEmbeddedEntity?
 
     @Query("SELECT * FROM T_GAME")
     fun loadAll(): List<GameEmbeddedEntity>

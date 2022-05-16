@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.team23.domain.enums.BidEnum
+import com.team23.domain.enums.GameTypeEnum
 import com.team23.domain.models.Game
 import com.team23.domain.models.Player
 import com.team23.domain.usecases.*
@@ -48,7 +49,7 @@ class TarotViewModel @Inject constructor(
 
     fun initGame(gameId: String?) {
         viewModelScope.launch(Dispatchers.IO) {
-            val loadedGame = loadGameUseCase.execute(gameId?.toIntOrNull()!!)
+            val loadedGame = loadGameUseCase.execute(gameId?.toIntOrNull()!!, GameTypeEnum.FRENCH_TAROT)
             players.clear()
             players.addAll(loadedGame.players)
             game = loadedGame

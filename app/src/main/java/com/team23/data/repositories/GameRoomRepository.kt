@@ -12,7 +12,7 @@ class GameRoomRepository @Inject constructor(
     private val gameDao: GameDao
 ) : GameRepository {
     override suspend fun findGameById(gameId: Int) =
-        gameDao.findEmbeddedById(gameId).toModel()
+        gameDao.findEmbeddedById(gameId)?.toModel()
 
     override suspend fun loadAllGames(): List<Game> = gameDao.loadAll().toModels()
 
