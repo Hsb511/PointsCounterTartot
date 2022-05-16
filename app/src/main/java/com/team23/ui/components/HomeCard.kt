@@ -75,7 +75,9 @@ fun HomeCard(
                                     shape = MaterialTheme.shapes.medium
                                 ).combinedClickable(
                                     onLongClick = { /* TODO HANDLE DELETION */ },
-                                    onClick = { onNavigateOldGame(it.id) }
+                                    onClick = {
+                                        onNavigateOldGame(it.id)
+                                    }
                                 )
                         ) {
                             Icon(

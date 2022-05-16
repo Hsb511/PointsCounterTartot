@@ -28,7 +28,7 @@ fun MainLayout() {
                 TarotScreen(
                     tarotViewModel,
                     navController,
-                    backStackEntry.arguments?.getInt("gameId" , 0) ?: 0
+                    backStackEntry.arguments?.getString("gameId" )
                 )
             }
             composable(route = "tarotForm") { TarotForm(tarotViewModel, navController) }

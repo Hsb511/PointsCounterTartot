@@ -30,9 +30,9 @@ import kotlinx.coroutines.launch
 fun TarotScreen(
     tarotViewModel: TarotViewModel = viewModel(),
     navController: NavHostController,
-    gameId: Int
+    gameId: String?
 ) {
-    tarotViewModel.gameId = gameId.toString()
+    tarotViewModel.initGame(gameId)
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
     val errorPlayerInvalid = stringResource(id = R.string.error_player_name_invalid)

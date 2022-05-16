@@ -4,14 +4,19 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.team23.domain.enums.BidEnum
+import com.team23.domain.models.Game
 import com.team23.domain.models.Player
 import com.team23.domain.usecases.*
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class TarotViewModel @Inject constructor(
+    private val loadGameUseCase: LoadGameUseCase,
     private val filterPlayerNameUseCase: FilterPlayerNameUseCase,
     private val filterAttackPointsUseCase: FilterAttackPointsUseCase,
     private val filterDefensePointsUseCase: FilterDefensePointsUseCase,
@@ -26,7 +31,7 @@ class TarotViewModel @Inject constructor(
     private val defaultAttackPoints = ""
     private val defaultDefensePoints = ""
 
-    lateinit var gameId: String
+    lateinit var game: Game
     val players = mutableStateListOf<Player>()
     val bid: MutableState<BidEnum?> = mutableStateOf(defaultBid)
     val oudlersAmount = mutableStateOf(defaultOudlersAmount)
@@ -39,6 +44,15 @@ class TarotViewModel @Inject constructor(
     init {
         players.addAll(listOf("Laure", "Guilla", "Hugo")
             .mapIndexed { index, value -> Player(index, value) })
+    }
+
+    fun initGame(gameId: String?) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val loadedGame = loadGameUseCase.execute(gameId?.toIntOrNull()!!)
+            players.clear()
+            players.addAll(loadedGame.players)
+            game = loadedGame
+        }
     }
 
     fun onAddPlayer() {
