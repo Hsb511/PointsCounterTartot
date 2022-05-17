@@ -23,6 +23,7 @@ import com.team23.R
 import com.team23.domain.models.Player
 import com.team23.ui.components.GridContent
 import com.team23.ui.components.GridHeader
+import com.team23.ui.components.PointsCounterBottomBar
 import com.team23.ui.viewmodels.TarotViewModel
 import kotlinx.coroutines.launch
 
@@ -54,6 +55,12 @@ fun TarotScreen(
                     snackbarHostState.showSnackbar(errorPlayerInvalid)
                 }
             }
+        },
+        onNavigateHome = {
+            navController.navigate("Home")
+        },
+        onNavigateSettings = {
+            // TODO CREATE THE SCREEN
         }
     )
 }
@@ -68,7 +75,9 @@ fun TarotScreen(
     snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
     onAddPlayer: () -> Unit = {},
     onAddGame: () -> Unit = {},
-    onModifierPlayerName: (String) -> String
+    onModifierPlayerName: (String) -> String,
+    onNavigateHome: () -> Unit,
+    onNavigateSettings: () -> Unit
 ) {
     val tableWidth = if (isAddingPlayer) 0.86f else 1f
 
@@ -83,7 +92,6 @@ fun TarotScreen(
             CircularProgressIndicator()
         } else {
             Scaffold(
-                modifier = Modifier.padding(8.dp),
                 floatingActionButton = {
                     FloatingActionButton(
                         onClick = { onAddGame() },
@@ -97,8 +105,11 @@ fun TarotScreen(
                         hostState = snackbarHostState,
                         snackbar = { Snackbar(it) }
                     )
-                }) { padding ->
-                Row {
+                },
+                isFloatingActionButtonDocked = true,
+                bottomBar = { PointsCounterBottomBar(onNavigateHome, onNavigateSettings) }
+            ) { padding ->
+                Row (modifier = Modifier.padding(8.dp)) {
                     Card(
                         shape = MaterialTheme.shapes.small,
                         modifier = Modifier
@@ -161,6 +172,8 @@ fun TarotScreenPreview() {
         players = listOf("Laure", "Romane", "Guilla", "Hugo")
             .mapIndexed { id, name -> Player(id, name) },
         scores = listOf(listOf(-23, -23, -23, 23), listOf(23, 23, -23, -23)),
-        onModifierPlayerName = { "" }
+        onModifierPlayerName = { "" },
+        onNavigateHome = {},
+        onNavigateSettings = {}
     )
 }

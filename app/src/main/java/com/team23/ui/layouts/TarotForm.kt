@@ -18,10 +18,7 @@ import androidx.navigation.NavHostController
 import com.team23.R
 import com.team23.domain.enums.BidEnum
 import com.team23.domain.models.Player
-import com.team23.ui.components.TarotBidsSection
-import com.team23.ui.components.TarotOudlersSection
-import com.team23.ui.components.TarotPlayersSection
-import com.team23.ui.components.TarotScoresSection
+import com.team23.ui.components.*
 import com.team23.ui.viewmodels.TarotViewModel
 
 @ExperimentalMaterialApi
@@ -40,6 +37,12 @@ fun TarotForm(tarotViewModel: TarotViewModel = viewModel(), navController: NavHo
         },
         onAttackPointsChanged = { attackPoints, defensePoints ->
             tarotViewModel.onFilterAttackPoints(attackPoints, defensePoints)
+        },
+        onNavigateHome = {
+            navController.navigate("Home")
+        },
+        onNavigateSettings = {
+            // TODO CREATE THE SCREEN
         }
     )
 }
@@ -53,10 +56,11 @@ fun TarotForm(
     attackPoints: MutableState<String>,
     defensePoints: MutableState<String>,
     onSaveNewGame: () -> Unit,
-    onAttackPointsChanged: (String, String) -> String
+    onAttackPointsChanged: (String, String) -> String,
+    onNavigateHome: () -> Unit,
+    onNavigateSettings: () -> Unit
 ) {
     Scaffold(
-        modifier = Modifier.padding(8.dp),
         floatingActionButton = {
             FloatingActionButton(
                 onClick = { onSaveNewGame() },
@@ -64,8 +68,11 @@ fun TarotForm(
             ) {
                 Icon(Icons.Filled.Done, "Done")
             }
-        }) { padding ->
-        Column(modifier = Modifier.padding(padding)) {
+        },
+        isFloatingActionButtonDocked = true,
+        bottomBar = { PointsCounterBottomBar(onNavigateHome, onNavigateSettings) }
+    ) { padding ->
+        Column(modifier = Modifier.padding(8.dp)) {
             TarotPlayersSection(
                 title = "${stringResource(id = R.string.tarot_taker)}:",
                 players = players,
@@ -115,6 +122,8 @@ fun TarotFormPreview() {
         defensePoints = remember { mutableStateOf("23") },
         oudlersAmount = remember { mutableStateOf(0) },
         onSaveNewGame = {},
-        onAttackPointsChanged = String::plus
+        onAttackPointsChanged = String::plus,
+        onNavigateHome = {},
+        onNavigateSettings = {}
     )
 }

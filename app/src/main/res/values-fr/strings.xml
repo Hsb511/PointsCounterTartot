@@ -8,6 +8,10 @@
     <string name="home_belote">Belote</string>
     <string name="home_round">Manches</string>
 
+    <!-- Navigation -->
+    <string name="navigation_home">Accueil</string>
+    <string name="navigation_settings">Paramètres</string>
+
     <!-- French tarot -->
     <string name="tarot_taker">preneur</string>
     <string name="tarot_bid">contrat</string>
