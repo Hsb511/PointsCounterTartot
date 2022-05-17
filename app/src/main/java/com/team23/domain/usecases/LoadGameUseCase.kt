@@ -10,14 +10,15 @@ class LoadGameUseCase @Inject constructor(
     private val gameRepository: GameRepository
 ) {
     suspend fun execute(gameId: Int, gameTypeEnum: GameTypeEnum) =
-        gameRepository.findGameById(gameId) ?: Game(
-            gameType = gameTypeEnum,
-            players = listOf(
-                Player(name = ""),
-                Player(name = ""),
-                Player(name = "")
+        gameRepository.findGameById(gameId) ?:
+        gameRepository.saveNewGame(
+            Game(
+                gameType = gameTypeEnum,
+                players = listOf(
+                    Player(name = ""),
+                    Player(name = ""),
+                    Player(name = "")
+                )
             )
-        ).also {
-            gameRepository.saveNewGame(it)
-        }
+        )
 }

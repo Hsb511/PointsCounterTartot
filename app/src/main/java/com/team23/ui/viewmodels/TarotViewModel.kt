@@ -26,6 +26,7 @@ class TarotViewModel @Inject constructor(
     private val checkFormValidityUseCase: CheckFormValidityUseCase,
     private val checkIsPlayerAddingUseCase: CheckIsPlayerAddingUseCase,
     private val checkAreAllPlayersNameSetUseCase: CheckAreAllPlayersNameSetUseCase,
+    private val persistPlayersUseCase: PersistPlayersUseCase
 ) : ViewModel() {
     private val defaultBid: BidEnum? = null
     private val defaultOudlersAmount = 0
@@ -53,24 +54,36 @@ class TarotViewModel @Inject constructor(
             isGameLoaded.value = false
             viewModelScope.launch(Dispatchers.IO) {
                 val loadedGame = loadGameUseCase.execute(gameId?.toIntOrNull()!!, GameTypeEnum.FRENCH_TAROT)
+                scores.clear()
                 players.clear()
                 players.addAll(loadedGame.players)
                 game = loadedGame
                 println("Loading fini")
                 isGameLoaded.value = true
+                isAddingPlayer.value = checkIsPlayerAddingUseCase(players, scores)
             }
         }
         isGameLoaded.value = true
     }
 
     fun onAddPlayer() {
-        // TODO CHANGE THAT BY USING DATA REPOSITORIES
-        val nextFreeId = players.maxByOrNull { it.id }!!.id + 1
-        players.add(Player(nextFreeId, ""))
+        players.add(Player(0, ""))
         isAddingPlayer.value = checkIsPlayerAddingUseCase(players, scores)
     }
 
-    fun onAddNewGame() = checkAreAllPlayersNameSetUseCase(players)
+    fun onAddNewGame(): Boolean {
+        return if (!isGameStarted.value) {
+            val arePlayersOk = checkAreAllPlayersNameSetUseCase(players)
+            if (arePlayersOk) {
+                viewModelScope.launch(Dispatchers.IO) {
+                    persistPlayersUseCase.execute(players, game.id)
+                }
+            }
+            arePlayersOk
+        } else {
+             true
+        }
+    }
 
     fun onSaveNewGame(): Boolean {
         val isFormValid = checkFormValidityUseCase(players, bid.value, attackPoints.value)
