@@ -19,6 +19,10 @@ import com.team23.R
 import com.team23.domain.enums.BidEnum
 import com.team23.domain.models.Player
 import com.team23.ui.components.*
+import com.team23.ui.components.tarot.TarotBidsSection
+import com.team23.ui.components.tarot.TarotBonusesSection
+import com.team23.ui.components.tarot.TarotOudlersSection
+import com.team23.ui.components.tarot.TarotPlayersSection
 import com.team23.ui.viewmodels.TarotViewModel
 
 @ExperimentalMaterialApi
@@ -98,15 +102,7 @@ fun TarotForm(
                 onAttackPointsChanged
             )
 
-            /*
-            TarotChipsSection(
-                title = "${stringResource(id = R.string.tarot_bonuses)}:",
-                chipsNameList = listOf(
-                    stringResource(id = R.string.tarot_handful),
-                    stringResource(id = R.string.tarot_misery),
-                    stringResource(id = R.string.tarot_slam)
-                ).associateWith { false }.toMutableMap()
-            )*/
+            TarotBonusesSection()
         }
     }
 }

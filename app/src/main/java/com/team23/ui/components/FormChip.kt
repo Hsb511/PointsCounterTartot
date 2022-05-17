@@ -3,13 +3,15 @@ package com.team23.ui.components
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.ui.Modifier
 
 @ExperimentalMaterialApi
 @Composable
 fun FormChip(
     text: String,
     colorState: MutableState<Boolean>,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     Chip(
         onClick = { onClick() },
@@ -18,7 +20,8 @@ fun FormChip(
                 colorState.value -> MaterialTheme.colors.primary
                 else -> MaterialTheme.colors.onSurface.copy(alpha = TextFieldDefaults.BackgroundOpacity)
             }
-        )
+        ),
+        modifier = modifier
     ) {
         Text(
             text = text,

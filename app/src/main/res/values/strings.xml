@@ -28,7 +28,9 @@
     <string name="tarot_defense">defense</string>
     <string name="tarot_takers_partner">takers partner</string>
     <string name="tarot_bonuses">bonuses</string>
-    <string name="tarot_handful">handful</string>
+    <string name="tarot_simple_handful">simple handful</string>
+    <string name="tarot_double_handful">double handful</string>
+    <string name="tarot_triple_handful">triple handful</string>
     <string name="tarot_misery">misery</string>
     <string name="tarot_slam">slam</string>
 

@@ -1,4 +1,4 @@
-package com.team23.ui.components
+package com.team23.ui.components.tarot
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,6 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.team23.R
 import com.team23.domain.enums.BidEnum
+import com.team23.ui.components.FormChip
 
 @ExperimentalMaterialApi
 @Composable

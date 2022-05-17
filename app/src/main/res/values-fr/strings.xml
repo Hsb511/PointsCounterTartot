@@ -28,7 +28,9 @@
     <string name="tarot_defense">défense</string>
     <string name="tarot_takers_partner">joueur appelé</string>
     <string name="tarot_bonuses">annonces</string>
-    <string name="tarot_handful">poignée</string>
+    <string name="tarot_simple_handful">simple poignée</string>
+    <string name="tarot_double_handful">double poignée</string>
+    <string name="tarot_triple_handful">triple poignée</string>
     <string name="tarot_misery">misère</string>
     <string name="tarot_slam">chelem</string>
 
