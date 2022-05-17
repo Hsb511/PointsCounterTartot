@@ -1,5 +1,6 @@
 package com.team23.ui.components
 
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
@@ -16,48 +17,49 @@ fun PointsCounterBottomBar(
     onNavigateSettings: () -> Unit
 ) {
     val selectedIndex = remember { mutableStateOf(0) }
+    BottomAppBar(cutoutShape = CircleShape) {
+        BottomNavigation(
+            backgroundColor = MaterialTheme.colors.secondaryVariant) {
+            BottomNavigationItem(
+                icon = {
+                    Icon(
+                        imageVector = Icons.Default.Home, "Home",
+                        tint = MaterialTheme.colors.onBackground
+                    )
+                },
+                label = {
+                    Text(
+                        text = stringResource(id = R.string.navigation_home),
+                        color = MaterialTheme.colors.onBackground
+                    )
+                },
+                selected = (selectedIndex.value == 0),
+                onClick = {
+                    selectedIndex.value = 0
+                    onNavigateHome()
+                }
+            )
 
-    BottomNavigation(
-        backgroundColor = MaterialTheme.colors.secondaryVariant) {
-        BottomNavigationItem(
-            icon = {
-                Icon(
-                    imageVector = Icons.Default.Home, "Home",
-                    tint = MaterialTheme.colors.onBackground
-                )
-            },
-            label = {
-                Text(
-                    text = stringResource(id = R.string.navigation_home),
-                    color = MaterialTheme.colors.onBackground
-                )
-            },
-            selected = (selectedIndex.value == 0),
-            onClick = {
-                selectedIndex.value = 0
-                onNavigateHome()
-            }
-        )
-
-        BottomNavigationItem(
-            icon = {
-                Icon(
-                    imageVector = Icons.Default.Settings,
-                    "Settings",
-                    tint = MaterialTheme.colors.onBackground
-                )
-            },
-            label = {
-                Text(
-                    text = stringResource(id = R.string.navigation_settings),
-                    color = MaterialTheme.colors.onBackground
-                )
-            },
-            selected = (selectedIndex.value == 1),
-            onClick = {
-                selectedIndex.value = 1
-                onNavigateSettings()
-            }
-        )
+            BottomNavigationItem(
+                icon = {
+                    Icon(
+                        imageVector = Icons.Default.Settings,
+                        "Settings",
+                        tint = MaterialTheme.colors.onBackground
+                    )
+                },
+                label = {
+                    Text(
+                        text = stringResource(id = R.string.navigation_settings),
+                        color = MaterialTheme.colors.onBackground
+                    )
+                },
+                selected = (selectedIndex.value == 1),
+                onClick = {
+                    selectedIndex.value = 1
+                    onNavigateSettings()
+                }
+            )
+        }
     }
 }

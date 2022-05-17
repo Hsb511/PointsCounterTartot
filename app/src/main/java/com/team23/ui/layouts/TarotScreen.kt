@@ -100,6 +100,7 @@ fun TarotScreen(
                         Icon(Icons.Filled.Add, "Add")
                     }
                 },
+                floatingActionButtonPosition = FabPosition.Center,
                 snackbarHost = {
                     SnackbarHost(
                         hostState = snackbarHostState,

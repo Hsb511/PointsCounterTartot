@@ -69,6 +69,7 @@ fun TarotForm(
                 Icon(Icons.Filled.Done, "Done")
             }
         },
+        floatingActionButtonPosition = FabPosition.Center,
         isFloatingActionButtonDocked = true,
         bottomBar = { PointsCounterBottomBar(onNavigateHome, onNavigateSettings) }
     ) { padding ->
