@@ -23,7 +23,7 @@ class TarotViewModel @Inject constructor(
     private val filterDefensePointsUseCase: FilterDefensePointsUseCase,
     private val computeGameScoresUseCase: ComputeGameScoresUseCase,
     private val updatePlayersScoreUseCase: UpdatePlayersScoreUseCase,
-    private val checkFormValidityUseCase: CheckFormValidityUseCase,
+    private val checkTarotFormValidityUseCase: CheckTarotFormValidityUseCase,
     private val checkIsPlayerAddingUseCase: CheckIsPlayerAddingUseCase,
     private val checkAreAllPlayersNameSetUseCase: CheckAreAllPlayersNameSetUseCase,
     private val persistPlayersUseCase: PersistPlayersUseCase
@@ -86,7 +86,7 @@ class TarotViewModel @Inject constructor(
     }
 
     fun onSaveNewGame(): Boolean {
-        val isFormValid = checkFormValidityUseCase(players, bid.value, attackPoints.value)
+        val isFormValid = checkTarotFormValidityUseCase(players, bid.value, attackPoints.value)
         if (isFormValid) {
             scores.add(
                 computeGameScoresUseCase(
