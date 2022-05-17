@@ -33,4 +33,7 @@ object RoomDatabaseModule {
 
     @Provides
     fun provideRoundDao(db: AppDatabase) = db.roundDao()
+
+    @Provides
+    fun provideGamePlayerCrossRefDao(db: AppDatabase) = db.gamePlayerCrossRefDao()
 }

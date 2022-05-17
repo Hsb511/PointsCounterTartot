@@ -41,6 +41,7 @@ fun TarotScreen(
         players = tarotViewModel.players,
         scores = tarotViewModel.scores,
         isAddingPlayer = tarotViewModel.isAddingPlayer.value,
+        isGameLoaded = tarotViewModel.isGameLoaded.value,
         isGameStarted = tarotViewModel.isGameStarted.value,
         snackbarHostState = snackbarHostState,
         onAddPlayer = { tarotViewModel.onAddPlayer() },
@@ -62,6 +63,7 @@ fun TarotScreen(
     players: List<Player>,
     scores: List<List<Int>>,
     isAddingPlayer: Boolean = false,
+    isGameLoaded: Boolean = true,
     isGameStarted: Boolean = true,
     snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
     onAddPlayer: () -> Unit = {},
@@ -73,76 +75,83 @@ fun TarotScreen(
     // TODO FIND A BETTER WAY TO HANDLE THE BUTTON HEIGHT (OR A BETTER UX FOR ADDING PLAYERS ?)
     val rowHeight = 60.dp
 
-    Scaffold(
-        modifier = Modifier.padding(8.dp),
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = { onAddGame() },
-                elevation = FloatingActionButtonDefaults.elevation(8.dp)
-            ) {
-                Icon(Icons.Filled.Add, "Add")
-            }
-        },
-        snackbarHost = {
-            SnackbarHost(
-                hostState = snackbarHostState,
-                snackbar = { Snackbar(it) }
-            )
-        }) { padding ->
-        Row {
-            Card(
-                shape = MaterialTheme.shapes.small,
-                modifier = Modifier
-                    .padding(padding)
-                    .fillMaxWidth(tableWidth)
-                    .border(
-                        width = 1.dp,
-                        color = MaterialTheme.colors.onSecondary,
-                        shape = MaterialTheme.shapes.small
-                    )
-            ) {
-                LazyColumn {
-                    item {
-                        GridHeader(
-                            players = players,
-                            rowHeight = rowHeight,
-                            isGameStarted = isGameStarted,
-                            onModifierPlayerName = onModifierPlayerName
-                        )
-                    }
-                    items(scores) {
-                        GridContent(scores = it)
-                    }
-                }
-            }
-
-            if (isAddingPlayer) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier
-                        .height(rowHeight)
-                        .wrapContentWidth()
-                        .padding(8.dp, 0.dp, 0.dp, 0.dp)
-                ) {
-                    IconButton(
-                        onClick = { onAddPlayer() },
-                        modifier = Modifier.background(
-                            color = MaterialTheme.colors.secondary,
-                            shape = MaterialTheme.shapes.large
-                        )
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = Modifier.fillMaxSize(),
+    ) {
+        if (!isGameLoaded) {
+            CircularProgressIndicator()
+        } else {
+            Scaffold(
+                modifier = Modifier.padding(8.dp),
+                floatingActionButton = {
+                    FloatingActionButton(
+                        onClick = { onAddGame() },
+                        elevation = FloatingActionButtonDefaults.elevation(8.dp)
                     ) {
-                        Icon(
-                            painter = painterResource(R.drawable.ic_baseline_person_add_24),
-                            contentDescription = "Adding a player",
-                            tint = MaterialTheme.colors.onSecondary,
-                        )
+                        Icon(Icons.Filled.Add, "Add")
+                    }
+                },
+                snackbarHost = {
+                    SnackbarHost(
+                        hostState = snackbarHostState,
+                        snackbar = { Snackbar(it) }
+                    )
+                }) { padding ->
+                Row {
+                    Card(
+                        shape = MaterialTheme.shapes.small,
+                        modifier = Modifier
+                            .padding(padding)
+                            .fillMaxWidth(tableWidth)
+                            .border(
+                                width = 1.dp,
+                                color = MaterialTheme.colors.onSecondary,
+                                shape = MaterialTheme.shapes.small
+                            )
+                    ) {
+                        LazyColumn {
+                            item {
+                                GridHeader(
+                                    players = players,
+                                    rowHeight = rowHeight,
+                                    isGameStarted = isGameStarted,
+                                    onModifierPlayerName = onModifierPlayerName
+                                )
+                            }
+                            items(scores) {
+                                GridContent(scores = it)
+                            }
+                        }
+                    }
+
+                    if (isAddingPlayer) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier
+                                .height(rowHeight)
+                                .wrapContentWidth()
+                                .padding(8.dp, 0.dp, 0.dp, 0.dp)
+                        ) {
+                            IconButton(
+                                onClick = { onAddPlayer() },
+                                modifier = Modifier.background(
+                                    color = MaterialTheme.colors.secondary,
+                                    shape = MaterialTheme.shapes.large
+                                )
+                            ) {
+                                Icon(
+                                    painter = painterResource(R.drawable.ic_baseline_person_add_24),
+                                    contentDescription = "Adding a player",
+                                    tint = MaterialTheme.colors.onSecondary,
+                                )
+                            }
+                        }
                     }
                 }
             }
         }
     }
-
-
 }
 
 @Preview(showSystemUi = true)

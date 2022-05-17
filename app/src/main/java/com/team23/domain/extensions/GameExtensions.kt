@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.icu.text.SimpleDateFormat
 import com.team23.data.entities.GameEmbeddedEntity
 import com.team23.data.entities.GameEntity
+import com.team23.data.entities.GamePlayerCrossRefEntity
 import com.team23.domain.models.Game
 
 const val SMALL_DATE_FORMAT = "dd/MM/yy"
@@ -16,6 +17,13 @@ fun Game.toEntity(): GameEntity = GameEntity(
     gameType = this.gameType.ordinal,
     startDate = startDate
 )
+
+fun Game.toGamePlayerCrossRefs(): List<GamePlayerCrossRefEntity> = this.players.map {
+    GamePlayerCrossRefEntity(
+        gameId = this.id,
+        playerId = it.id
+    )
+}
 
 fun Game.toEmbeddedEntity(): GameEmbeddedEntity = GameEmbeddedEntity(
     game = this.toEntity(),

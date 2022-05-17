@@ -1,15 +1,21 @@
 package com.team23.data.repositories
 
 import com.team23.data.daos.GameDao
+import com.team23.data.daos.GamePlayerCrossRefDao
+import com.team23.data.daos.PlayerDao
+import com.team23.data.entities.GamePlayerCrossRefEntity
 import com.team23.data.extensions.toModel
 import com.team23.data.extensions.toModels
+import com.team23.domain.extensions.toEntities
 import com.team23.domain.extensions.toEntity
 import com.team23.domain.models.Game
 import com.team23.domain.repositories.GameRepository
 import javax.inject.Inject
 
 class GameRoomRepository @Inject constructor(
-    private val gameDao: GameDao
+    private val gameDao: GameDao,
+    private val gamePlayerDao: GamePlayerCrossRefDao,
+    private val playerDao: PlayerDao
 ) : GameRepository {
     override suspend fun findGameById(gameId: Int) =
         gameDao.findEmbeddedById(gameId)?.toModel()
@@ -17,6 +23,13 @@ class GameRoomRepository @Inject constructor(
     override suspend fun loadAllGames(): List<Game> = gameDao.loadAll().toModels()
 
     override suspend fun saveNewGame(game: Game) {
-        gameDao.insert(game.toEntity())
+        val gameId = gameDao.insert(game.toEntity())
+        val playersId = playerDao.insertAll(game.players.toEntities())
+        gamePlayerDao.insertAll(playersId.map {
+            GamePlayerCrossRefEntity(
+                gameId = gameId.toInt(),
+                playerId = it.toInt()
+            )
+        })
     }
 }

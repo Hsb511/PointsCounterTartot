@@ -15,5 +15,5 @@ interface GameDao {
     fun loadAll(): List<GameEmbeddedEntity>
 
     @Insert
-    fun insert(game: GameEntity)
+    fun insert(game: GameEntity): Long
 }
