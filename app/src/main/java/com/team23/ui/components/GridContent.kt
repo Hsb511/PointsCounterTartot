@@ -50,27 +50,29 @@ fun GridContent(scores: List<Int>) {
                     .border(BorderStroke(1.dp, MaterialTheme.colors.onSecondary))
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(
-                        text = "1",
-                        style = MaterialTheme.typography.h6,
-                        color = Color.Transparent,
-                        modifier = Modifier.padding(4.dp)
-                    )
+                    if (!isTakersScore) {
+                        Text(
+                            text = "1",
+                            style = MaterialTheme.typography.h6,
+                            color = Color.Transparent,
+                            modifier = Modifier.padding(4.dp)
+                        )
+                    }
                     Text(
                         text = score.toString(),
                         style = scoreStyle,
                         color = scoreColor,
                         modifier = Modifier.padding(4.dp)
                     )
-                    Text(
-                        text = "1",
-                        style = MaterialTheme.typography.h6,
-                        color = Color.Transparent,
-                        modifier = Modifier.padding(4.dp)
-
-                    )
+                    if (!isTakersScore) {
+                        Text(
+                            text = "1",
+                            style = MaterialTheme.typography.h6,
+                            color = Color.Transparent,
+                            modifier = Modifier.padding(4.dp)
+                        )
+                    }
                 }
-
             }
         }
     }
