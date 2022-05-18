@@ -27,6 +27,7 @@ class TarotViewModel @Inject constructor(
     private val checkTarotFormValidityUseCase: CheckTarotFormValidityUseCase,
     private val checkIsPlayerAddingUseCase: CheckIsPlayerAddingUseCase,
     private val checkAreAllPlayersNameSetUseCase: CheckAreAllPlayersNameSetUseCase,
+    private val handleBonusesValidityUseCase: HandleBonusesValidityUseCase,
     private val persistPlayersUseCase: PersistPlayersUseCase
 ) : ViewModel() {
     private val defaultBid: BidEnum? = null
@@ -90,7 +91,7 @@ class TarotViewModel @Inject constructor(
 
     fun onBonusClicked(bonusEnum: BonusEnum) {
         bonuses[bonusEnum]!!.value = !bonuses[bonusEnum]!!.value
-        // TODO HANDLE VALIDITY
+        handleBonusesValidityUseCase.execute(bonusEnum, bonuses)
     }
 
     fun onSaveNewGame(): Boolean {
