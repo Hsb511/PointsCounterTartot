@@ -124,6 +124,9 @@ class TarotViewModel @Inject constructor(
         oudlersAmount.value = defaultOudlersAmount
         attackPoints.value = defaultAttackPoints
         defensePoints.value = defaultDefensePoints
+        bonuses.forEach {
+            it.value.value = false
+        }
     }
 
     fun onFilterPlayerName(playerName: String) = filterPlayerNameUseCase(playerName)

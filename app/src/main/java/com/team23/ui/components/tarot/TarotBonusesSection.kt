@@ -102,9 +102,16 @@ fun TarotBonusesSection(
                 modifier = Modifier.padding(4.dp, 0.dp)
             )
         }
+        Column {
+            TarotPlayersSection(
+                title = "${stringResource(R.string.tarot_misery)}:",
+                players = players,
+                isTakerSection = false
+            )
+        }
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(text = "${stringResource(id = R.string.tarot_slam)}:")
-            Column {
+            Column(modifier = Modifier.padding(4.dp, 0.dp)) {
                 Row {
                     FormChip(
                         text = stringResource(id = R.string.tarot_announced_slam).uppercase(),
@@ -135,13 +142,6 @@ fun TarotBonusesSection(
                 }
             }
 
-        }
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            TarotPlayersSection(
-                title = stringResource(id = R.string.tarot_misery),
-                players = players,
-                isTakerSection = false
-            )
         }
     }
 }
