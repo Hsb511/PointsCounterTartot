@@ -102,7 +102,8 @@ class TarotViewModel @Inject constructor(
                     players,
                     bid.value!!,
                     oudlersAmount.value,
-                    attackPoints.value.toInt()
+                    attackPoints.value.toInt(),
+                    bonuses
                 )
             )
             val totalScores = updatePlayersScoreUseCase(players, scores)
