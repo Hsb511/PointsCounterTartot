@@ -19,6 +19,7 @@ import com.team23.ui.components.FormChip
 fun TarotPlayersSection(
     title: String,
     players: List<Player>,
+    // TODO CHANGE THIS TO TAKE THE BONUSES SECTION INTO ACCOUNT
     isTakerSection: Boolean
 ) {
     val playersStates =

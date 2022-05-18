@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import com.team23.R
 
 @Composable
@@ -17,9 +18,13 @@ fun PointsCounterBottomBar(
     onNavigateSettings: () -> Unit
 ) {
     val selectedIndex = remember { mutableStateOf(0) }
-    BottomAppBar(cutoutShape = CircleShape) {
+    BottomAppBar(
+        cutoutShape = CircleShape,
+        backgroundColor = MaterialTheme.colors.secondaryVariant
+    ) {
         BottomNavigation(
-            backgroundColor = MaterialTheme.colors.secondaryVariant) {
+            backgroundColor = MaterialTheme.colors.secondaryVariant
+        ) {
             BottomNavigationItem(
                 icon = {
                     Icon(
@@ -62,4 +67,13 @@ fun PointsCounterBottomBar(
             )
         }
     }
+}
+
+@Preview(showSystemUi = true)
+@Composable
+fun PointsCounterBottomBarPreview() {
+    PointsCounterBottomBar(
+        onNavigateHome = {},
+        onNavigateSettings = {}
+    )
 }

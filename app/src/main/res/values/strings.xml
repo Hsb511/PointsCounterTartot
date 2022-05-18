@@ -31,8 +31,13 @@
     <string name="tarot_simple_handful">simple handful</string>
     <string name="tarot_double_handful">double handful</string>
     <string name="tarot_triple_handful">triple handful</string>
-    <string name="tarot_misery">misery</string>
+    <string name="tarot_one_at_the_end">One at the End</string>
     <string name="tarot_slam">slam</string>
+    <string name="tarot_announced_slam">announced slam</string>
+    <string name="tarot_failed_slam">failed slam</string>
+    <string name="tarot_non_announced_slam">non announced slam</string>
+    <string name="tarot_defense_slam">defense slam</string>
+    <string name="tarot_misery">misery</string>
 
     <!-- Snack bar errors -->
     <string name="error_no_taker">No taker has been selected</string>

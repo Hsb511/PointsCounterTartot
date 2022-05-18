@@ -31,8 +31,13 @@
     <string name="tarot_simple_handful">simple poignée</string>
     <string name="tarot_double_handful">double poignée</string>
     <string name="tarot_triple_handful">triple poignée</string>
-    <string name="tarot_misery">misère</string>
+    <string name="tarot_one_at_the_end">petit au bout</string>
     <string name="tarot_slam">chelem</string>
+    <string name="tarot_announced_slam">chelem annoncé fait</string>
+    <string name="tarot_failed_slam">chelem annoncé chuté</string>
+    <string name="tarot_non_announced_slam">chelem non annoncé</string>
+    <string name="tarot_defense_slam">chelem de la défense</string>
+    <string name="tarot_misery">misère</string>
 
     <!-- Snack bar errors -->
     <string name="error_no_taker">Aucun preneur n\'a été sélectionné</string>

@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.team23.domain.enums.BidEnum
+import com.team23.domain.enums.BonusEnum
 import com.team23.domain.enums.GameTypeEnum
 import com.team23.domain.models.Game
 import com.team23.domain.models.Player
@@ -43,6 +44,8 @@ class TarotViewModel @Inject constructor(
     val scores = mutableStateListOf<List<Int>>()
     val isAddingPlayer = mutableStateOf(true)
     val isGameStarted = mutableStateOf(false)
+    val bonuses: MutableMap<BonusEnum, MutableState<Boolean>> = BonusEnum.values()
+        .associateWith { mutableStateOf(false) }.toMutableMap()
 
     init {
         players.addAll(listOf("Laure", "Guilla", "Hugo")
@@ -83,6 +86,11 @@ class TarotViewModel @Inject constructor(
         } else {
              true
         }
+    }
+
+    fun onBonusClicked(bonusEnum: BonusEnum) {
+        bonuses[bonusEnum]!!.value = !bonuses[bonusEnum]!!.value
+        // TODO HANDLE VALIDITY
     }
 
     fun onSaveNewGame(): Boolean {

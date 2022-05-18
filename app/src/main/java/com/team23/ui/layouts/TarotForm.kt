@@ -1,7 +1,7 @@
 package com.team23.ui.layouts
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
@@ -17,8 +17,10 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.team23.R
 import com.team23.domain.enums.BidEnum
+import com.team23.domain.enums.BonusEnum
 import com.team23.domain.models.Player
-import com.team23.ui.components.*
+import com.team23.ui.components.PointsCounterBottomBar
+import com.team23.ui.components.TarotScoresSection
 import com.team23.ui.components.tarot.TarotBidsSection
 import com.team23.ui.components.tarot.TarotBonusesSection
 import com.team23.ui.components.tarot.TarotOudlersSection
@@ -42,6 +44,8 @@ fun TarotForm(tarotViewModel: TarotViewModel = viewModel(), navController: NavHo
         onAttackPointsChanged = { attackPoints, defensePoints ->
             tarotViewModel.onFilterAttackPoints(attackPoints, defensePoints)
         },
+        bonuses = tarotViewModel.bonuses,
+        onBonusClicked =  { bonus -> tarotViewModel.onBonusClicked(bonus) },
         onNavigateHome = {
             navController.navigate("Home")
         },
@@ -61,6 +65,8 @@ fun TarotForm(
     defensePoints: MutableState<String>,
     onSaveNewGame: () -> Unit,
     onAttackPointsChanged: (String, String) -> String,
+    bonuses: MutableMap<BonusEnum, MutableState<Boolean>>,
+    onBonusClicked: (BonusEnum) -> Unit,
     onNavigateHome: () -> Unit,
     onNavigateSettings: () -> Unit
 ) {
@@ -77,32 +83,39 @@ fun TarotForm(
         isFloatingActionButtonDocked = true,
         bottomBar = { PointsCounterBottomBar(onNavigateHome, onNavigateSettings) }
     ) { padding ->
-        Column(modifier = Modifier.padding(8.dp)) {
-            TarotPlayersSection(
-                title = "${stringResource(id = R.string.tarot_taker)}:",
-                players = players,
-                isTakerSection = true
-            )
-
-            TarotBidsSection(selectedBid)
-
-            TarotOudlersSection(oudlersAmount)
-
-            if (players.size == 5) {
+        LazyColumn(modifier = Modifier.padding(8.dp, 8.dp, 8.dp, 56.dp)) {
+            item {
                 TarotPlayersSection(
-                    title = "${stringResource(id = R.string.tarot_takers_partner)}:",
+                    title = "${stringResource(id = R.string.tarot_taker)}:",
                     players = players,
-                    isTakerSection = false
+                    isTakerSection = true
                 )
             }
 
-            TarotScoresSection(
-                attackPoints,
-                defensePoints,
-                onAttackPointsChanged
-            )
+            item {
+                TarotBidsSection(selectedBid)
+            }
 
-            TarotBonusesSection()
+            item {
+                TarotOudlersSection(oudlersAmount)
+            }
+
+            item {
+                if (players.size == 5) {
+                    TarotPlayersSection(
+                        title = "${stringResource(id = R.string.tarot_takers_partner)}:",
+                        players = players,
+                        isTakerSection = false
+                    )
+                }
+            }
+
+            item {
+                TarotScoresSection(attackPoints, defensePoints, onAttackPointsChanged)
+            }
+            item {
+                TarotBonusesSection(players, bonuses, onBonusClicked)
+            }
         }
     }
 }
@@ -120,6 +133,8 @@ fun TarotFormPreview() {
         oudlersAmount = remember { mutableStateOf(0) },
         onSaveNewGame = {},
         onAttackPointsChanged = String::plus,
+        bonuses = mutableMapOf(),
+        onBonusClicked = {},
         onNavigateHome = {},
         onNavigateSettings = {}
     )
