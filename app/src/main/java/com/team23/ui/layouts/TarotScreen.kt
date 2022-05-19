@@ -31,7 +31,7 @@ import kotlinx.coroutines.launch
 fun TarotScreen(
     tarotViewModel: TarotViewModel = viewModel(),
     navController: NavHostController,
-    gameId: String?
+    gameId: String
 ) {
     tarotViewModel.initGame(gameId)
     val snackbarHostState = remember { SnackbarHostState() }
