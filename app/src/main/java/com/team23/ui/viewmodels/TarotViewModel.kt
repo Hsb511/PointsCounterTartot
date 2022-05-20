@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.team23.domain.enums.BidEnum
 import com.team23.domain.enums.BonusEnum
 import com.team23.domain.enums.GameTypeEnum
+import com.team23.domain.enums.OudlerEnum
 import com.team23.domain.models.Game
 import com.team23.domain.models.Player
 import com.team23.domain.usecases.*
@@ -31,7 +32,6 @@ class TarotViewModel @Inject constructor(
     private val persistPlayersUseCase: PersistPlayersUseCase
 ) : ViewModel() {
     private val defaultBid: BidEnum? = null
-    private val defaultOudlersAmount = 0
     private val defaultAttackPoints = ""
     private val defaultDefensePoints = ""
 
@@ -40,7 +40,7 @@ class TarotViewModel @Inject constructor(
     val isGameLoaded = mutableStateOf(false)
     val players = mutableStateListOf<Player>()
     val bid: MutableState<BidEnum?> = mutableStateOf(defaultBid)
-    val oudlersAmount = mutableStateOf(defaultOudlersAmount)
+    private val oudlers = mutableStateListOf<OudlerEnum>()
     val attackPoints = mutableStateOf(defaultAttackPoints)
     val defensePoints = mutableStateOf(defaultDefensePoints)
     val scores = mutableStateListOf<List<Int>>()
@@ -92,6 +92,14 @@ class TarotViewModel @Inject constructor(
         }
     }
 
+    fun onOudlerClicked(oudlerEnum: OudlerEnum) {
+        if (oudlers.contains(oudlerEnum)) {
+            oudlers.remove(oudlerEnum)
+        } else {
+            oudlers.add(oudlerEnum)
+        }
+    }
+
     fun onBonusClicked(bonusEnum: BonusEnum) {
         bonuses[bonusEnum]!!.value = !bonuses[bonusEnum]!!.value
         handleBonusesValidityUseCase.execute(bonusEnum, bonuses)
@@ -104,7 +112,7 @@ class TarotViewModel @Inject constructor(
                 computeGameScoresUseCase(
                     players,
                     bid.value!!,
-                    oudlersAmount.value,
+                    oudlers.size,
                     attackPoints.value.toInt(),
                     bonuses
                 )
@@ -126,7 +134,7 @@ class TarotViewModel @Inject constructor(
             it.isPartner = false
         }
         bid.value = defaultBid
-        oudlersAmount.value = defaultOudlersAmount
+        oudlers.clear()
         attackPoints.value = defaultAttackPoints
         defensePoints.value = defaultDefensePoints
         bonuses.forEach {

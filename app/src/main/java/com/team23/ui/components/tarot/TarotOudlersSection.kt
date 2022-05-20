@@ -7,7 +7,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -15,17 +14,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.team23.R
+import com.team23.domain.enums.OudlerEnum
 import com.team23.ui.components.FormChip
 
 @ExperimentalMaterialApi
 @Composable
-fun TarotOudlersSection(oudlersAmount: MutableState<Int>) {
-    val oudlers = listOf(
-        stringResource(id = R.string.tarot_petit),
-        stringResource(id = R.string.tarot_monde),
-        stringResource(id = R.string.tarot_fool)
-    )
-
+fun TarotOudlersSection(onOudlerClicked: (OudlerEnum) -> Unit) {
     Text(text = "${stringResource(id = R.string.tarot_oudlers)}:")
 
     LazyRow(
@@ -33,18 +27,14 @@ fun TarotOudlersSection(oudlersAmount: MutableState<Int>) {
         modifier = Modifier.fillMaxWidth()
     ) {
 
-        items(oudlers) {
+        items(OudlerEnum.values()) {
             val selected = remember { mutableStateOf(false) }
             FormChip(
-                text = it.uppercase(),
+                text = stringResource(it.nameResId).uppercase(),
                 colorState = selected,
                 onClick = {
                     selected.value = !selected.value
-                    if (selected.value) {
-                        oudlersAmount.value ++
-                    } else {
-                        oudlersAmount.value --
-                    }
+                    onOudlerClicked(it)
                 }
             )
         }
@@ -55,7 +45,5 @@ fun TarotOudlersSection(oudlersAmount: MutableState<Int>) {
 @Preview(showSystemUi = true)
 @Composable
 fun TarotOudlersSectionPreview() {
-    TarotOudlersSection(
-        oudlersAmount = remember { mutableStateOf(0) }
-    )
+    TarotOudlersSection(onOudlerClicked = { })
 }

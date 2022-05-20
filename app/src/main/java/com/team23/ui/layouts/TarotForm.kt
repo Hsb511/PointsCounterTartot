@@ -18,6 +18,7 @@ import androidx.navigation.NavHostController
 import com.team23.R
 import com.team23.domain.enums.BidEnum
 import com.team23.domain.enums.BonusEnum
+import com.team23.domain.enums.OudlerEnum
 import com.team23.domain.models.Player
 import com.team23.ui.components.PointsCounterBottomBar
 import com.team23.ui.components.TarotScoresSection
@@ -33,7 +34,6 @@ fun TarotForm(tarotViewModel: TarotViewModel = viewModel(), navController: NavHo
     TarotForm(
         players = tarotViewModel.players,
         selectedBid = tarotViewModel.bid,
-        oudlersAmount = tarotViewModel.oudlersAmount,
         attackPoints = tarotViewModel.attackPoints,
         defensePoints = tarotViewModel.defensePoints,
         onSaveNewGame = {
@@ -41,6 +41,7 @@ fun TarotForm(tarotViewModel: TarotViewModel = viewModel(), navController: NavHo
                 navController.navigate("tarot/${tarotViewModel.game.id}")
             }
         },
+        onOudlerClicked = { oudlerEnum -> tarotViewModel.onOudlerClicked(oudlerEnum) } ,
         onAttackPointsChanged = { attackPoints, defensePoints ->
             tarotViewModel.onFilterAttackPoints(attackPoints, defensePoints)
         },
@@ -60,10 +61,10 @@ fun TarotForm(tarotViewModel: TarotViewModel = viewModel(), navController: NavHo
 fun TarotForm(
     players: List<Player>,
     selectedBid: MutableState<BidEnum?>,
-    oudlersAmount: MutableState<Int>,
     attackPoints: MutableState<String>,
     defensePoints: MutableState<String>,
     onSaveNewGame: () -> Unit,
+    onOudlerClicked: (OudlerEnum) -> Unit,
     onAttackPointsChanged: (String, String) -> String,
     bonuses: MutableMap<BonusEnum, MutableState<Boolean>>,
     onBonusClicked: (BonusEnum) -> Unit,
@@ -97,7 +98,7 @@ fun TarotForm(
             }
 
             item {
-                TarotOudlersSection(oudlersAmount)
+                TarotOudlersSection(onOudlerClicked)
             }
 
             item {
@@ -130,7 +131,7 @@ fun TarotFormPreview() {
         selectedBid = remember { mutableStateOf(BidEnum.GUARD) },
         attackPoints = remember { mutableStateOf("68") },
         defensePoints = remember { mutableStateOf("23") },
-        oudlersAmount = remember { mutableStateOf(0) },
+        onOudlerClicked = {},
         onSaveNewGame = {},
         onAttackPointsChanged = String::plus,
         bonuses = mutableMapOf(),
