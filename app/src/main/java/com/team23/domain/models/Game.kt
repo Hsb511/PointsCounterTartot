@@ -8,5 +8,6 @@ data class Game(
     val gameType: GameTypeEnum,
     val players: List<Player>,
     val startDate: Date = Date(),
-    val scores: List<List<Int>> = emptyList()
+    val scores: List<List<Int>> = emptyList(),
+    val rounds: List<Round> = emptyList()
 )

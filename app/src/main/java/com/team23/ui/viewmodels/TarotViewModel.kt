@@ -11,6 +11,7 @@ import com.team23.domain.enums.GameTypeEnum
 import com.team23.domain.enums.OudlerEnum
 import com.team23.domain.models.Game
 import com.team23.domain.models.Player
+import com.team23.domain.models.Round
 import com.team23.domain.usecases.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -48,6 +49,7 @@ class TarotViewModel @Inject constructor(
     val isGameStarted = mutableStateOf(false)
     val bonuses: MutableMap<BonusEnum, MutableState<Boolean>> = BonusEnum.values()
         .associateWith { mutableStateOf(false) }.toMutableMap()
+    val rounds = mutableStateListOf<Round>()
 
     init {
         players.addAll(listOf("Laure", "Guilla", "Hugo")
@@ -78,7 +80,7 @@ class TarotViewModel @Inject constructor(
         isAddingPlayer.value = checkIsPlayerAddingUseCase(players, scores)
     }
 
-    fun onAddNewGame(): Boolean {
+    fun onAddNewRound(): Boolean {
         return if (!isGameStarted.value) {
             val arePlayersOk = checkAreAllPlayersNameSetUseCase(players)
             if (arePlayersOk) {
@@ -105,18 +107,19 @@ class TarotViewModel @Inject constructor(
         handleBonusesValidityUseCase.execute(bonusEnum, bonuses)
     }
 
-    fun onSaveNewGame(): Boolean {
+    fun onSaveNewRound(): Boolean {
         val isFormValid = checkTarotFormValidityUseCase(players, bid.value, attackPoints.value)
         if (isFormValid) {
-            scores.add(
-                computeGameScoresUseCase(
-                    players,
-                    bid.value!!,
-                    oudlers.size,
-                    attackPoints.value.toInt(),
-                    bonuses
-                )
+            val newRound = Round(
+                taker = players.first { it.isTaker },
+                partner = players.firstOrNull { it.isPartner },
+                bid = bid.value!!,
+                oudlers = oudlers,
+                attackPoints = attackPoints.value.toInt(),
+                bonuses = bonuses
             )
+            rounds.add(newRound)
+            scores.add(computeGameScoresUseCase(game, newRound))
             val totalScores = updatePlayersScoreUseCase(players, scores)
             isAddingPlayer.value = checkIsPlayerAddingUseCase(players, scores)
             isGameStarted.value = true

@@ -47,8 +47,8 @@ fun TarotScreen(
         snackbarHostState = snackbarHostState,
         onAddPlayer = { tarotViewModel.onAddPlayer() },
         onModifierPlayerName = { playerName -> tarotViewModel.onFilterPlayerName(playerName) },
-        onAddGame = {
-            if (tarotViewModel.onAddNewGame()) {
+        onAddRound = {
+            if (tarotViewModel.onAddNewRound()) {
                 navController.navigate("tarotForm")
             } else {
                 coroutineScope.launch {
@@ -74,7 +74,7 @@ fun TarotScreen(
     isGameStarted: Boolean = true,
     snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
     onAddPlayer: () -> Unit = {},
-    onAddGame: () -> Unit = {},
+    onAddRound: () -> Unit = {},
     onModifierPlayerName: (String) -> String,
     onNavigateHome: () -> Unit,
     onNavigateSettings: () -> Unit
@@ -94,7 +94,7 @@ fun TarotScreen(
             Scaffold(
                 floatingActionButton = {
                     FloatingActionButton(
-                        onClick = { onAddGame() },
+                        onClick = { onAddRound() },
                         elevation = FloatingActionButtonDefaults.elevation(8.dp)
                     ) {
                         Icon(Icons.Filled.Add, "Add")

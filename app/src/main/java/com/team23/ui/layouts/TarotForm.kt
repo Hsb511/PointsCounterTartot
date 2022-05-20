@@ -36,8 +36,8 @@ fun TarotForm(tarotViewModel: TarotViewModel = viewModel(), navController: NavHo
         selectedBid = tarotViewModel.bid,
         attackPoints = tarotViewModel.attackPoints,
         defensePoints = tarotViewModel.defensePoints,
-        onSaveNewGame = {
-            if (tarotViewModel.onSaveNewGame()) {
+        onSaveNewRound = {
+            if (tarotViewModel.onSaveNewRound()) {
                 navController.navigate("tarot/${tarotViewModel.game.id}")
             }
         },
@@ -63,7 +63,7 @@ fun TarotForm(
     selectedBid: MutableState<BidEnum?>,
     attackPoints: MutableState<String>,
     defensePoints: MutableState<String>,
-    onSaveNewGame: () -> Unit,
+    onSaveNewRound: () -> Unit,
     onOudlerClicked: (OudlerEnum) -> Unit,
     onAttackPointsChanged: (String, String) -> String,
     bonuses: MutableMap<BonusEnum, MutableState<Boolean>>,
@@ -74,7 +74,7 @@ fun TarotForm(
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { onSaveNewGame() },
+                onClick = { onSaveNewRound() },
                 elevation = FloatingActionButtonDefaults.elevation(8.dp)
             ) {
                 Icon(Icons.Filled.Done, "Done")
@@ -132,7 +132,7 @@ fun TarotFormPreview() {
         attackPoints = remember { mutableStateOf("68") },
         defensePoints = remember { mutableStateOf("23") },
         onOudlerClicked = {},
-        onSaveNewGame = {},
+        onSaveNewRound = {},
         onAttackPointsChanged = String::plus,
         bonuses = mutableMapOf(),
         onBonusClicked = {},
