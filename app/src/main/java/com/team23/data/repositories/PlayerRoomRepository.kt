@@ -12,7 +12,7 @@ class PlayerRoomRepository @Inject constructor(
     private val playerDao: PlayerDao,
     private val gamePlayerCrossRefDao: GamePlayerCrossRefDao
 ) : PlayerRepository {
-    override suspend fun savePlayers(players: List<Player>, gameId: Int) {
+    override suspend fun savePlayers(players: List<Player>, gameId: Int): List<Long> {
         val playersId = playerDao.insertAll(players.toEntities())
         gamePlayerCrossRefDao.insertAll(playersId.map {
             GamePlayerCrossRefEntity(
@@ -20,5 +20,6 @@ class PlayerRoomRepository @Inject constructor(
                 playerId = it.toInt()
             )
         })
+        return playersId
     }
 }

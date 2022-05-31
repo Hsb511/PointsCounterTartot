@@ -85,7 +85,11 @@ class TarotViewModel @Inject constructor(
             val arePlayersOk = checkAreAllPlayersNameSetUseCase(players)
             if (arePlayersOk) {
                 viewModelScope.launch(Dispatchers.IO) {
-                    persistPlayersUseCase.execute(players, game.id)
+                    persistPlayersUseCase.execute(players, game.id).forEachIndexed { index, playerId ->
+                        if (players[index].id == 0) {
+                            players[index].id = playerId.toInt()
+                        }
+                    }
                 }
             }
             arePlayersOk

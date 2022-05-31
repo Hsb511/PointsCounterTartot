@@ -7,7 +7,7 @@ import javax.inject.Inject
 class PersistPlayersUseCase @Inject constructor(
     private val playerRepository: PlayerRepository
 ) {
-    suspend fun execute(players: List<Player>, gameId: Int) {
-        playerRepository.savePlayers(players, gameId)
+    suspend fun execute(players: List<Player>, gameId: Int): List<Long> {
+        return playerRepository.savePlayers(players, gameId)
     }
 }
