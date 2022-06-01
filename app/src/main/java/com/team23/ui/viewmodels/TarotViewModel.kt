@@ -80,6 +80,8 @@ class TarotViewModel @Inject constructor(
         isAddingPlayer.value = checkIsPlayerAddingUseCase(players, scores)
     }
 
+    fun checkPlayersNameValid() = checkAreAllPlayersNameSetUseCase(players)
+
     fun onAddNewRound(): Boolean {
         return if (!isGameStarted.value) {
             val arePlayersOk = checkAreAllPlayersNameSetUseCase(players)

@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -27,6 +28,7 @@ import com.team23.ui.components.PointsCounterBottomBar
 import com.team23.ui.viewmodels.TarotViewModel
 import kotlinx.coroutines.launch
 
+@ExperimentalComposeUiApi
 @Composable
 fun TarotScreen(
     tarotViewModel: TarotViewModel = viewModel(),
@@ -46,6 +48,7 @@ fun TarotScreen(
         isGameStarted = tarotViewModel.isGameStarted.value,
         snackbarHostState = snackbarHostState,
         onAddPlayer = { tarotViewModel.onAddPlayer() },
+        onCheckPlayer = { tarotViewModel.checkPlayersNameValid() },
         onModifierPlayerName = { playerName -> tarotViewModel.onFilterPlayerName(playerName) },
         onAddRound = {
             if (tarotViewModel.onAddNewRound()) {
@@ -65,6 +68,7 @@ fun TarotScreen(
     )
 }
 
+@ExperimentalComposeUiApi
 @Composable
 fun TarotScreen(
     players: List<Player>,
@@ -74,6 +78,7 @@ fun TarotScreen(
     isGameStarted: Boolean = true,
     snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
     onAddPlayer: () -> Unit = {},
+    onCheckPlayer: () -> Boolean = { true },
     onAddRound: () -> Unit = {},
     onModifierPlayerName: (String) -> String,
     onNavigateHome: () -> Unit,
@@ -128,6 +133,7 @@ fun TarotScreen(
                                     players = players,
                                     rowHeight = rowHeight,
                                     isGameStarted = isGameStarted,
+                                    onCheckPlayer = onCheckPlayer,
                                     onModifierPlayerName = onModifierPlayerName
                                 )
                             }
@@ -166,6 +172,7 @@ fun TarotScreen(
     }
 }
 
+@ExperimentalComposeUiApi
 @Preview(showSystemUi = true)
 @Composable
 fun TarotScreenPreview() {
