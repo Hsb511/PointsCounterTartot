@@ -9,19 +9,19 @@ The **Home screen** where you access all of your games and create new ones
 
 | light mode in english | dark mode in french |
 |-------------------|-------------------|
-| ![home light mode en](https://github.com/Hsb511/PointsCounterTartot/screenshots/v1/home_light_en.jpg?raw=true) | ![home dark mode fr](https://github.com/Hsb511/PointsCounterTartot/screenshots/v1/home_dark_fr.jpg?raw=true) |
+| ![home light mode en](https://github.com/Hsb511/PointsCounterTartot/blob/main/screenshots/v1/home_light_en.jpg?raw=true) | ![home dark mode fr](https://github.com/Hsb511/PointsCounterTartot/blob/main/screenshots/v1/home_dark_fr.jpg?raw=true) |
 
 The **French tarot screen** where you follow the current scores of your players and of each round
 
 | light mode in english | dark mode in french |
 |-------------------|-------------------|
-| ![tarot light mode en](https://github.com/Hsb511/PointsCounterTartot/screenshots/v1/scores_light_en.jpg?raw=true) | ![tarot dark mode fr](https://github.com/Hsb511/PointsCounterTartot/screenshots/v1/scores_dark_fr.jpg?raw=true) |
+| ![tarot light mode en](https://github.com/Hsb511/PointsCounterTartot/blob/main/screenshots/v1/scores_light_en.jpg?raw=true) | ![tarot dark mode fr](https://github.com/Hsb511/PointsCounterTartot/blob/main/screenshots/v1/scores_dark_fr.jpg?raw=true) |
 
 The **Form tarot screen** allows you to create a new game
 
 | light mode in english | dark mode in french |
 |-------------------|-------------------|
-| ![form light mode en](https://github.com/Hsb511/PointsCounterTartot/screenshots/v1/form_light_en.jpg?raw=true) | ![form dark mode fr](https://github.com/Hsb511/PointsCounterTartot/screenshots/v1/form_dark_fr.jpg?raw=true) |
+| ![form light mode en](https://github.com/Hsb511/PointsCounterTartot/blob/main/screenshots/v1/form_light_en.jpg?raw=true) | ![form dark mode fr](https://github.com/Hsb511/PointsCounterTartot/blob/main/screenshots/v1/form_dark_fr.jpg?raw=true) |
 
 
 # Technical stack
