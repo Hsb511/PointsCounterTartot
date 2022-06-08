@@ -35,10 +35,11 @@ class TarotViewModel @Inject constructor(
     private val defaultBid: BidEnum? = null
     private val defaultAttackPoints = ""
     private val defaultDefensePoints = ""
+    private lateinit var newGameIdData: String
 
-    var gameId = ""
     lateinit var game: Game
     val isGameLoaded = mutableStateOf(false)
+    val isGameStarted = mutableStateOf(false)
     val players = mutableStateListOf<Player>()
     val bid: MutableState<BidEnum?> = mutableStateOf(defaultBid)
     private val oudlers = mutableStateListOf<OudlerEnum>()
@@ -46,33 +47,27 @@ class TarotViewModel @Inject constructor(
     val defensePoints = mutableStateOf(defaultDefensePoints)
     val scores = mutableStateListOf<List<Int>>()
     val isAddingPlayer = mutableStateOf(true)
-    val isGameStarted = mutableStateOf(false)
     val bonuses: MutableMap<BonusEnum, MutableState<Boolean>> = BonusEnum.values()
         .associateWith { mutableStateOf(false) }.toMutableMap()
     val rounds = mutableStateListOf<Round>()
 
-    init {
-        players.addAll(listOf("Laure", "Guilla", "Hugo")
-            .mapIndexed { index, value -> Player(index, value) })
-    }
-
     fun initGame(newGameId: String) {
-        if (gameId != newGameId) {
-            gameId = newGameId
-            isGameLoaded.value = false
-            viewModelScope.launch(Dispatchers.IO) {
-                val loadedGame =
-                    loadGameUseCase.execute(newGameId.toIntOrNull()!!, GameTypeEnum.FRENCH_TAROT)
-                scores.clear()
-                players.clear()
-                players.addAll(loadedGame.players)
-                game = loadedGame
-                gameId = loadedGame.id.toString()
-                isAddingPlayer.value = checkIsPlayerAddingUseCase(players, scores)
-                isGameLoaded.value = true
+        if (!this::newGameIdData.isInitialized || newGameId != newGameIdData) {
+            newGameIdData = newGameId
+            newGameId.toIntOrNull()?.let {
+                isGameLoaded.value = false
+                viewModelScope.launch(Dispatchers.IO) {
+                    val loadedGame = loadGameUseCase.execute(it, GameTypeEnum.FRENCH_TAROT)
+                    scores.clear()
+                    players.clear()
+                    players.addAll(loadedGame.players)
+                    game = loadedGame
+                    isAddingPlayer.value = checkIsPlayerAddingUseCase(players, scores)
+                    isGameStarted.value = !scores.isEmpty()
+                    isGameLoaded.value = true
+                }
             }
         }
-        isGameLoaded.value = true
     }
 
     fun onAddPlayer() {
@@ -87,11 +82,12 @@ class TarotViewModel @Inject constructor(
             val arePlayersOk = checkAreAllPlayersNameSetUseCase(players)
             if (arePlayersOk) {
                 viewModelScope.launch(Dispatchers.IO) {
-                    persistPlayersUseCase.execute(players, game.id).forEachIndexed { index, playerId ->
-                        if (players[index].id == 0) {
-                            players[index].id = playerId.toInt()
+                    persistPlayersUseCase.execute(players, game.id)
+                        .forEachIndexed { index, playerId ->
+                            if (players[index].id == 0) {
+                                players[index].id = playerId.toInt()
+                            }
                         }
-                    }
                 }
             }
             arePlayersOk
